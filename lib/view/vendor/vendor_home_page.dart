@@ -1,6 +1,7 @@
 
 
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/user_home_page.dart';
 import 'package:wed_crew/view/vendor/vendor_booking.dart';
 import 'package:wed_crew/view/vendor/vendor_profile.dart';
 import 'package:wed_crew/view/vendor/vendor_service.dart';
@@ -68,7 +69,7 @@ class _VendorHomePageState extends State<VendorHomePage> {
                   ),
                   ListTile(
                     leading: const Icon(Icons.add),
-                    title: const Text('View Feedback'),
+                    title: const Text('SignUp'),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -78,17 +79,17 @@ class _VendorHomePageState extends State<VendorHomePage> {
                       );
                     },
                   ),
-                //   ListTile(
-                //     leading: const Icon(Icons.visibility),
-                //     title: const Text('View Service Status'),
-                //     onTap: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const StatusView()),
-                //       );
-                //     },
-                //   ),
+                  ListTile(
+                    leading: const Icon(Icons.visibility),
+                    title: const Text('User home'),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserHomePage()),
+                      );
+                    },
+                  ),
                 //   ListTile(
                 //     leading: const Icon(Icons.charging_station_outlined),
                 //     title: const Text('View Charging Status'),
@@ -136,7 +137,7 @@ class _VendorHomePageState extends State<VendorHomePage> {
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  Color.fromARGB(255, 226, 236, 185),
+                  Color.fromRGBO(206, 206, 206, 0.995),
                   Color.fromARGB(255, 230, 244, 241),
                 ],
                 begin: Alignment.topLeft,
@@ -184,7 +185,7 @@ class _VendorHomePageState extends State<VendorHomePage> {
                   ],
                 ),
               ),
-              const VendorServicePage(),
+               VendorServicePage(),
               const VendorBooking(),
               const VendorProfile(),
             ],
@@ -204,8 +205,8 @@ class _VendorHomePageState extends State<VendorHomePage> {
               icon: Icon(Icons.account_circle, size: 30), label: ''),
         ],
         type: BottomNavigationBarType.fixed,
-        selectedItemColor:  Colors.black,
-        unselectedItemColor:  Colors.grey,
+        selectedItemColor:  Colors.grey,
+        unselectedItemColor:  Colors.black,
       ),
     );
   }

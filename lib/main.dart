@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wed_crew/view/introduction_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:wed_crew/view/login.dart';
+import 'package:wed_crew/view/vendor/vendor_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,25 +43,27 @@ class _MyAppState extends State<MyApp> {
         useMaterial3: true,
       ),
      // home: const OnboardingPage1(),\
-      home: AnimatedSplashScreen(
-        splash: Image.asset(
-          'assets/icons/wedcrewLogo.png',
-          height: 150, // Set the height
-          width: 150, // Set the width
-          fit: BoxFit.cover, // Adjust how the image fits its container
-          // color: Colors.green, // Apply a tint color with transparency
-          alignment: Alignment.center, // Align the image within its container
-        ),
+      home: VendorHomePage(),
+      
+      //  AnimatedSplashScreen(
+      //   splash: Image.asset(
+      //     'assets/icons/wedcrewLogo.png',
+      //     height: 150, // Set the height
+      //     width: 150, // Set the width
+      //     fit: BoxFit.cover, // Adjust how the image fits its container
+      //     // color: Colors.green, // Apply a tint color with transparency
+      //     alignment: Alignment.center, // Align the image within its container
+      //   ),
 
-        splashTransition: SplashTransition.scaleTransition,
-        // Center(
-        // child: Text(r
-        //   'Splash Screen',style: TextStyle(fontSize: 17),
+      //   splashTransition: SplashTransition.scaleTransition,
+      //   // Center(
+      //   // child: Text(r
+      //   //   'Splash Screen',style: TextStyle(fontSize: 17),
 
-        // ),
-        // ),
-        nextScreen: OnboardingPage1(),
-      ),
+      //   // ),
+      //   // ),
+      //   nextScreen: OnboardingPage1(),
+      // ),
     );
   }
 }

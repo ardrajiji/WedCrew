@@ -7,8 +7,8 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
-        backgroundColor: const Color.fromRGBO(206, 146, 157, 1),
+        title: const Text('Profile', style: TextStyle(color: Colors.white),),
+        backgroundColor:  Colors.black,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -21,8 +21,7 @@ class UserProfile extends StatelessWidget {
             _buildProfileField('Email', 'ardra@gmail.com'),
             const SizedBox(height: 15),
             _buildProfileField('Phone Number', '+91 9996959899'),
-            const SizedBox(height: 15),
-            _buildProfileField('Address', 'Thrissur, Kerala, India'),
+            const SizedBox(height: 15)
           ],
         ),
       ),
