@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_home_page.dart';
+import 'package:wed_crew/view/user_view_bookings.dart';
 import 'package:wed_crew/view/vendor/vendor_booking.dart';
 import 'package:wed_crew/view/vendor/vendor_profile.dart';
 import 'package:wed_crew/view/vendor/vendor_service.dart';
@@ -90,17 +91,17 @@ class _VendorHomePageState extends State<VendorHomePage> {
                       );
                     },
                   ),
-                //   ListTile(
-                //     leading: const Icon(Icons.charging_station_outlined),
-                //     title: const Text('View Charging Status'),
-                //     onTap: () {
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const ChargingStatusViews()),
-                //       );
-                //     },
-                //   ),
+                  ListTile(
+                    leading: const Icon(Icons.charging_station_outlined),
+                    title: const Text('View user side booking '),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>  BookingRequestPage()),
+                      );
+                    },
+                  ),
                 //   ListTile(
                 //     leading: const Icon(Icons.history),
                 //     title: const Text('View Purchase History'),
@@ -186,8 +187,8 @@ class _VendorHomePageState extends State<VendorHomePage> {
                 ),
               ),
                VendorServicePage(),
-              const VendorBooking(),
-              const VendorProfile(),
+               ViewBookingPage(),
+               VendorProfile(),
             ],
           ),
         ],

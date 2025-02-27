@@ -31,20 +31,51 @@ class _VendorServicePageState extends State<VendorServicePage> {
   ];
 
   void _deleteOption(int index) {
-    setState(() {
-      shootOptions.removeAt(index);
-    });
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Delete Service"),
+        content: Text("Are you sure you want to delete this service?"),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("Cancel"),
+          ),
+          TextButton(
+            onPressed: () {
+              setState(() {
+                shootOptions.removeAt(index);
+              });
+              Navigator.pop(context);
+            },
+            child: Text("Delete", style: TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
   }
 
   void _updateOption(int index) {
-    // Function to handle update logic
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Update Service"),
+        content: Text("Update functionality will be implemented here."),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text("OK"),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Services',style:TextStyle(color: Colors.white),),
+        title: Text('Services', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.black,
       ),
       body: ListView.builder(
@@ -78,7 +109,7 @@ class _VendorServicePageState extends State<VendorServicePage> {
                         onPressed: () => _updateOption(index),
                       ),
                       IconButton(
-                        icon: Icon(Icons.delete, color: Colors.red),
+                        icon: Icon(Icons.delete, color: Colors.redAccent),
                         onPressed: () => _deleteOption(index),
                       ),
                     ],
@@ -91,13 +122,15 @@ class _VendorServicePageState extends State<VendorServicePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => AddServicePage(),));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => AddServicePage()),
+          );
         },
         backgroundColor: Colors.black54,
-        tooltip:" Add service",
-        child: Icon(Icons.add,color: Colors.white),
+        tooltip: "Add service",
+        child: Icon(Icons.add, color: Colors.white),
       ),
     );
   }
 }
-
