@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/basic_package_home.dart';
+import 'package:wed_crew/view/user_modules/basicpackage_home/page/basic_package_home.dart';
 import 'package:wed_crew/view/decoration_page.dart';
 import 'package:wed_crew/view/luxury_package_home.dart';
 import 'package:wed_crew/view/makeup_page.dart';
@@ -8,7 +8,6 @@ import 'package:wed_crew/view/premium_package_home.dart';
 import 'package:wed_crew/view/service_list_page.dart';
 import 'package:wed_crew/view/user_profile.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:lottie/lottie.dart';
 import 'package:wed_crew/view/venue_page.dart';
 
 class UserHomePage extends StatefulWidget {

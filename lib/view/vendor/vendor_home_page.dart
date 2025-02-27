@@ -5,17 +5,17 @@ import 'package:wed_crew/view/user_home_page.dart';
 import 'package:wed_crew/view/user_view_bookings.dart';
 import 'package:wed_crew/view/vendor/vendor_booking.dart';
 import 'package:wed_crew/view/vendor/vendor_profile.dart';
-import 'package:wed_crew/view/vendor/vendor_service.dart';
-import 'package:wed_crew/view/vendor/vendor_signup.dart';
+import 'package:wed_crew/view/vendor_module/service_display/page/vendor_service.dart';
+import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
 
-class VendorHomePage extends StatefulWidget {
-  const VendorHomePage({super.key});
+class VendorHomePages extends StatefulWidget {
+  const VendorHomePages({super.key});
 
   @override
-  State<VendorHomePage> createState() => _VendorHomePageState();
+  State<VendorHomePages> createState() => _VendorHomePagesState();
 }
 
-class _VendorHomePageState extends State<VendorHomePage> {
+class _VendorHomePagesState extends State<VendorHomePages> {
  
 
   int _currentIndex = 0;
@@ -71,25 +71,25 @@ class _VendorHomePageState extends State<VendorHomePage> {
                   ListTile(
                     leading: const Icon(Icons.add),
                     title: const Text('SignUp'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpPage(),
-                        ),
-                      );
-                    },
+                    // onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => const SignUpPage(),
+                    //     ),
+                    //   );
+                    // },
                   ),
                   ListTile(
                     leading: const Icon(Icons.visibility),
                     title: const Text('User home'),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const UserHomePage()),
-                      );
-                    },
+                    // onTap: () {
+                    //   Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const UserHomePage()),
+                    //   );
+                    // },
                   ),
                   ListTile(
                     leading: const Icon(Icons.charging_station_outlined),
@@ -188,7 +188,7 @@ class _VendorHomePageState extends State<VendorHomePage> {
               ),
                VendorServicePage(),
                ViewBookingPage(),
-               VendorProfile(),
+               VendorProfilePage(),
             ],
           ),
         ],

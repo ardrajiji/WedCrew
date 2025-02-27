@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
 
@@ -21,7 +22,7 @@ class UserProfile extends StatelessWidget {
             _buildProfileField('Email', 'ardra@gmail.com'),
             const SizedBox(height: 15),
             _buildProfileField('Phone Number', '+91 9996959899'),
-            const SizedBox(height: 15)
+            const SizedBox(height: 15),
           ],
         ),
       ),

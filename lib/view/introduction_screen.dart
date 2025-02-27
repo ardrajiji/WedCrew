@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/login.dart';
+import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
 
 class OnboardingPage1 extends StatelessWidget {
   const OnboardingPage1({super.key});
@@ -9,29 +9,49 @@ class OnboardingPage1 extends StatelessWidget {
     return Scaffold(
       body: OnboardingPagePresenter(pages: [
         OnboardingPageModel(
-          title: 'Fast, Fluid and Secure',
-          description: 'Plan Your Dream Wedding in One Place',
-          imageUrl: 'assets/image/img1.png',
-          bgColor: const Color.fromARGB(244, 242, 239, 213),
-        ),
-        OnboardingPageModel(
-          title: 'Connect with your friends.',
-          description: 'Connect with your friends anytime anywhere.',
-          imageUrl: 'assets/image/img2.png',
-          bgColor: const Color.fromARGB(244, 242, 239, 213),
-        ),
-        OnboardingPageModel(
-          title: 'Bookmark your favourites',
+          title: 'Welcome to Your WEDCREW',
           description:
-              'Bookmark your favourite quotes to read at a leisure time.',
-          imageUrl: 'assets/image/img3.png',
-          bgColor: const Color.fromARGB(244, 242, 239, 213),
+              'Your one-stop solution to plan, organize, and manage your dream wedding effortlessly.',
+          imageUrl: 'assets/image/img1.png',
+          bgColor: Colors.white,
+          textColor: Color.fromRGBO(34, 125, 69, 1),
+          titlesub: Color.fromRGBO(194, 154, 119, 1.0),
         ),
         OnboardingPageModel(
-          title: 'Follow creators',
-          description: 'Follow your favourite creators to stay in the loop.',
-          imageUrl: 'assets/image/img1.png',
-          bgColor: const Color.fromARGB(244, 240, 236, 198),
+          title: 'Plan Every Detail',
+          description:
+              'From venues to vendors, manage all aspects of your wedding in one place.',
+          imageUrl: 'assets/image/img2.png',
+          bgColor:  Colors.white,
+          textColor: Color.fromRGBO(34, 125, 69, 1),
+          titlesub: Color.fromRGBO(194, 154, 119, 1.0),
+        ),
+        OnboardingPageModel(
+          title: 'Stay Connected',
+          description:
+              'Collaborate with your partner, family, and wedding planners in real-time.',
+          imageUrl: 'assets/image/img3.png',
+          bgColor: Colors.white,
+          textColor: Color.fromRGBO(34, 125, 69, 1),
+          titlesub: Color.fromRGBO(194, 154, 119, 1.0),
+        ),
+        OnboardingPageModel(
+          title: 'Track Your Budget',
+          description:
+              'Easily manage your wedding budget and keep track of expenses.',
+          imageUrl: 'assets/image/img4.png',
+          bgColor:  Colors.white,
+          textColor: Color.fromRGBO(34, 125, 69, 1),
+          titlesub: Color.fromRGBO(194, 154, 119, 1.0),
+        ),
+        OnboardingPageModel(
+          title: 'Save Your Favorites',
+          description:
+              'Bookmark your favorite venues, vendors, and ideas for quick access.',
+          imageUrl: 'assets/image/img5.png',
+          bgColor:  Colors.white,
+          textColor: Color.fromRGBO(34, 125, 69, 1),
+          titlesub: Color.fromRGBO(194, 154, 119, 1.0),
         ),
       ]),
     );
@@ -114,7 +134,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                         .textTheme
                                         .bodyMedium
                                         ?.copyWith(
-                                          color: item.textColor,
+                                          color: item.titlesub,
                                         )),
                               )
                             ]))
@@ -136,7 +156,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           height: 8,
                           margin: const EdgeInsets.all(2.0),
                           decoration: BoxDecoration(
-                              color: Colors.black,
+                              color: Color.fromRGBO(34, 125, 69, 1),
                               borderRadius: BorderRadius.circular(10.0)),
                         ))
                     .toList(),
@@ -151,33 +171,34 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                     TextButton(
                         style: TextButton.styleFrom(
                             visualDensity: VisualDensity.comfortable,
-                            foregroundColor: Colors.black,
+                            foregroundColor:
+                                const Color.fromRGBO(194, 154, 119, 1.0),
                             textStyle: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
                         onPressed: () {
-                         // widget.onSkip?.call();
+                          // widget.onSkip?.call();
                           Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
-                                  ),
-                                );
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         },
                         child: const Text("Skip")),
                     TextButton(
                       style: TextButton.styleFrom(
                           visualDensity: VisualDensity.comfortable,
-                          foregroundColor: Colors.black,
+                          foregroundColor: Color.fromRGBO(194, 154, 119, 1.0),
                           textStyle: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
                       onPressed: () {
                         if (_currentPage == widget.pages.length - 1) {
-                         Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LoginPage(),
-                                  ),
-                                );
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => LoginPage(),
+                            ),
+                          );
                         } else {
                           _pageController.animateToPage(_currentPage + 1,
                               curve: Curves.easeInOutCubic,
@@ -215,11 +236,14 @@ class OnboardingPageModel {
   final String imageUrl;
   final Color bgColor;
   final Color textColor;
+  final Color titlesub;
 
-  OnboardingPageModel(
-      {required this.title,
-      required this.description,
-      required this.imageUrl,
-      this.bgColor = Colors.blue,
-      this.textColor = Colors.black});
+  OnboardingPageModel({
+    required this.title,
+    required this.description,
+    required this.imageUrl,
+    this.bgColor = const Color.fromARGB(255, 8, 89, 155),
+    this.textColor = const Color(0xFF4552B5),
+    this.titlesub = const Color(0xFF4552B5),
+  });
 }

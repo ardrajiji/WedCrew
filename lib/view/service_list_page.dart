@@ -10,26 +10,22 @@ class ServiceListPage extends StatelessWidget {
   final List<Map<String, dynamic>> services = [
     {
       'title': 'Photography',
-      'icon': Icons.camera_alt,
-      'image': 'assets/image/photography.jpg',
+      'image': 'assets/image/photographer2.jpg',
       'page': PhotographyPage(),
     },
     {
       'title': 'Venue',
-      'icon': Icons.other_houses,
-      'image': 'assets/image/venue.jpg',
+      'image': 'assets/image/decor2.jpg',
       'page': VenuePage(),
     },
     {
       'title': 'Decoration',
-      'icon': Icons.celebration,
-      'image': 'assets/image/decoration.jpg',
+      'image': 'assets/image/decoration2.jpg',
       'page': DecorationPage(),
     },
     {
       'title': 'Makeup',
-      'icon': Icons.brush,
-      'image': 'assets/image/makeup.jpg',
+      'image': 'assets/image/makeup2.jpg',
       'page': MakeupPage(),
     },
   ];
@@ -39,24 +35,17 @@ class ServiceListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Our Services"),
-        backgroundColor: const Color.fromARGB(255, 0, 128, 129),
+        backgroundColor: Color.fromARGB(255, 212, 179, 151),
       ),
-      backgroundColor: const Color.fromARGB(244, 246, 244, 226),
+      backgroundColor: const Color.fromARGB(244, 242, 248, 243),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: GridView.builder(
+        child: ListView.builder(
           itemCount: services.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1, // 1 columns
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            childAspectRatio: 2.0, // Square shape
-          ),
           itemBuilder: (context, index) {
             return _buildServiceCard(
               context,
               services[index]['title'],
-              services[index]['icon'],
               services[index]['image'],
               services[index]['page'],
             );
@@ -67,7 +56,7 @@ class ServiceListPage extends StatelessWidget {
   }
 
   Widget _buildServiceCard(
-      BuildContext context, String title, IconData icon, String imagePath, Widget destinationPage) {
+      BuildContext context, String title, String imagePath, Widget destinationPage) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -76,31 +65,47 @@ class ServiceListPage extends StatelessWidget {
         );
       },
       child: Card(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         elevation: 5,
+        margin: const EdgeInsets.symmetric(vertical: 10),
         child: Container(
+          padding: const EdgeInsets.all(8.0),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              image: AssetImage(imagePath),
-              fit: BoxFit.cover,
-            ),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Row(
             children: [
-              Icon(icon, size: 40, color: Colors.white),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.black54,
-                  borderRadius: BorderRadius.circular(5),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Stack(
+                  children: [
+                    Image.asset(
+                      imagePath,
+                      width: 120,
+                      height: 100,
+                      fit: BoxFit.cover,
+                    ),
+                    Container(
+                      width: 120,
+                      height: 100,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        //color: Colors.black45,
+                      ),
+                    ),
+                  ],
                 ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
                 child: Text(
                   title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromRGBO(34, 125, 69, 1)
+                  ),
                 ),
               ),
             ],

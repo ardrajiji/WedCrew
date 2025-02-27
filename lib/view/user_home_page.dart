@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:wed_crew/view/basic_package_home.dart';
+import 'package:wed_crew/view/user_modules/basicpackage_home/page/basic_package_home.dart';
 import 'package:wed_crew/view/decoration_page.dart';
 import 'package:wed_crew/view/luxury_package_home.dart';
 import 'package:wed_crew/view/makeup_page.dart';
@@ -18,10 +18,10 @@ class UserHomePage extends StatefulWidget {
 }
 
 class _UserHomePageState extends State<UserHomePage> {
-  final List<String> imageUrls = [
-    'assets/image/basic.png',
-    'assets/image/premium.png',
-    'assets/image/luxury.png',
+  final List<Map<String, dynamic>> packages = [
+    {'image': 'assets/image/basic.png', 'page': BasicPackageHome()},
+    {'image': 'assets/image/premium.png', 'page': PremiumPackageHome()},
+    {'image': 'assets/image/luxury.png', 'page': LuxuryPackageHome()},
   ];
 
   int _currentIndex = 0;
@@ -47,7 +47,7 @@ class _UserHomePageState extends State<UserHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Color.fromRGBO(245, 242, 240, 1),
       body: PageView(
         controller: _pageController,
         onPageChanged: _onPageChanged,
@@ -59,7 +59,7 @@ class _UserHomePageState extends State<UserHomePage> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
         onTap: _onBottomNavTapped,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: 'Home'),
@@ -67,8 +67,9 @@ class _UserHomePageState extends State<UserHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
         ],
         type: BottomNavigationBarType.fixed,
-        selectedItemColor: Colors.white,
+        selectedItemColor: Color.fromRGBO(34, 125, 69, 1),
         unselectedItemColor: Colors.grey,
+      
       ),
     );
   }
@@ -81,15 +82,18 @@ class _UserHomePageState extends State<UserHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 50),
-            const Text("Welcome Ardra!", style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white)),
+            const Text("Welcome Ardra!",
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color:  Color.fromRGBO(34, 125, 69, 1))),
             const SizedBox(height: 20),
             _buildSearchBar(),
             const SizedBox(height: 20),
-            const Text('Select Your Wedding Package', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+            const Text('Select Your Wedding Package',
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color:  Color.fromRGBO(34, 125, 69, 1))),
             const SizedBox(height: 20),
             _buildCarousel(),
             const SizedBox(height: 40),
-            const Text('Our Services', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white)),
+            const Text('Our Services',
+                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color:  Color.fromRGBO(34, 125, 69, 1))),
             const SizedBox(height: 10),
             _buildServiceList(),
           ],
@@ -102,11 +106,12 @@ class _UserHomePageState extends State<UserHomePage> {
     return TextField(
       decoration: InputDecoration(
         filled: true,
-        fillColor: Colors.grey[800],
+        fillColor: Color.fromRGBO(244, 218, 196, 1),
         hintText: 'Search for services...',
-        hintStyle: TextStyle(color: Colors.grey[400]),
-        prefixIcon: const Icon(Icons.search, color: Colors.white),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
+        hintStyle: TextStyle(color: Colors.black),
+        prefixIcon: const Icon(Icons.search, color: Colors.black),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
       ),
       style: const TextStyle(color: Colors.white),
     );
@@ -121,10 +126,19 @@ class _UserHomePageState extends State<UserHomePage> {
         autoPlayCurve: Curves.easeInOut,
         autoPlayInterval: const Duration(seconds: 3),
       ),
-      items: imageUrls.map((url) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.asset(url, fit: BoxFit.cover, width: double.infinity),
+      items: packages.map((package) {
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => package['page'] as Widget),
+            );
+          },
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Image.asset(package['image'] as String,
+                fit: BoxFit.cover, width: double.infinity),
+          ),
         );
       }).toList(),
     );
@@ -132,10 +146,10 @@ class _UserHomePageState extends State<UserHomePage> {
 
   Widget _buildServiceList() {
     final services = [
-      {'title': 'Photography', 'image': 'assets/image/photography.jpg', 'page': PhotographyPage()},
-      {'title': 'Venue', 'image': 'assets/image/venue.jpg', 'page': VenuePage()},
-      {'title': 'Decoration', 'image': 'assets/image/decoration.jpg', 'page': DecorationPage()},
-      {'title': 'Makeup', 'image': 'assets/image/makeup.jpg', 'page': MakeupPage()},
+      {'title': 'Photography', 'image': 'assets/image/Homephotographer.jpg', 'page': PhotographyPage()},
+      {'title': 'Venue', 'image': 'assets/image/homeVenue.webp', 'page': VenuePage()},
+      {'title': 'Decoration', 'image': 'assets/image/homeDecor.jpg', 'page': DecorationPage()},
+      {'title': 'Makeup', 'image': 'assets/image/homemakeup.jpg', 'page': MakeupPage()},
     ];
 
     return SizedBox(
@@ -146,24 +160,29 @@ class _UserHomePageState extends State<UserHomePage> {
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context) => services[index]['page'] as Widget));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => services[index]['page'] as Widget),
+              );
             },
             child: Container(
-              width: 120,
+              width: 100,
               margin: const EdgeInsets.symmetric(horizontal: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.grey[900],
+                color: Color.fromRGBO(246, 216, 190, 1),
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(8),
-                    child: Image.asset(services[index]['image'] as String, width: 80, height: 80, fit: BoxFit.cover),
+                    child: Image.asset(services[index]['image'] as String,
+                        width: 80, height: 80, fit: BoxFit.cover),
                   ),
                   const SizedBox(height: 10),
-                  Text(services[index]['title'] as String, style: const TextStyle(color: Colors.white, fontSize: 16)),
+                  Text(services[index]['title'] as String,
+                      style: const TextStyle(color: Color.fromRGBO(34, 125, 69, 1),fontSize: 16, fontWeight: FontWeight.bold)),
                 ],
               ),
             ),

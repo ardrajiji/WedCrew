@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/login.dart';
+import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
+import 'package:wed_crew/view/user_modules/user_register/service/user_reg_service.dart';
 import 'package:wed_crew/view/user_home_page.dart';
 
 class UserRegistration extends StatefulWidget {
@@ -20,13 +21,56 @@ class _UserRegistrationState extends State<UserRegistration> {
   bool _obscureConfirmPassword = true;
 
   @override
+  void dispose() {
+    // Dispose all controllers
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    _confirmPasswordController.dispose();
+    super.dispose();
+  }
+
+
+   
+  // Function to handle form submission
+  Future<void> _registerUser() async {
+    if (_formKey.currentState?.validate() == true) {
+      try {
+        final responseMessage = await UserRegistrationService(
+          name: _nameController.text.trim(),
+          email: _emailController.text.trim(),
+          password: _passwordController.text.trim(),
+          phone: _phoneController.text.trim(),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('${responseMessage}')),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginPage(),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration failed: $e')),
+        );
+      }
+    }
+  }
+   
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(244, 242, 239, 213),
+      backgroundColor:  Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(21.0),
+            padding: const EdgeInsets.all(28.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -44,7 +88,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                             style: TextStyle(
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
-                              color: Color.fromARGB(255, 0, 128, 129),
+                              color: Color.fromRGBO(194, 154, 119, 1.0),
 
                             ),
                           ),
@@ -85,14 +129,15 @@ class _UserRegistrationState extends State<UserRegistration> {
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color.fromARGB(255, 0, 128, 129),
+                                backgroundColor: Color.fromRGBO(194, 154, 119, 1.0),
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                               ),
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHomePage()));
-                                }
-                              },
+                              onPressed:_registerUser,
+                              // () {
+                              //   if (_formKey.currentState!.validate()) {
+                              //     Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHomePage()));
+                              //   }
+                              // },
                               child: const Text(
                                 'Register',
                                 style: TextStyle(color: Colors.white, fontSize: 18),
@@ -121,8 +166,9 @@ class _UserRegistrationState extends State<UserRegistration> {
                     child: const Text(
                         'Login',
                         style: TextStyle(
-                        color: Color.fromARGB(255, 0, 128, 129),
+                        color: Color.fromRGBO(194, 154, 119, 1.0),
                         fontWeight: FontWeight.bold,
+                        fontSize: 18,
                         ),
                     ),
                     ),
@@ -140,7 +186,7 @@ class _UserRegistrationState extends State<UserRegistration> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Color.fromRGBO(194, 154, 119, 1.0),)),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,
@@ -158,7 +204,7 @@ class _UserRegistrationState extends State<UserRegistration> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Color.fromRGBO(194, 154, 119, 1.0),)),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,

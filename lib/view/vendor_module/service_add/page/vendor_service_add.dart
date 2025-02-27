@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/vendor_module/service_add/service/service_add_service.dart';
 
 class AddServicePage extends StatefulWidget {
   const AddServicePage({super.key});
@@ -13,11 +14,35 @@ class _AddServicePageState extends State<AddServicePage> {
   final TextEditingController _detailsController = TextEditingController();
   final TextEditingController _amountController = TextEditingController();
 
+
+@override
+  void dispose() {
+    // Dispose all controllers
+    _serviceNameController.dispose();
+    _detailsController.dispose();
+    _amountController.dispose();
+    super.dispose();
+  }
+
   void _submit() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Service Added Successfully!')),
-      );
+    if (_formKey.currentState!.validate() == true ) {
+      try {
+        final responseMessage = vendorAddService(
+          service_name: _serviceNameController.text.trim(),
+          details: _detailsController.text.trim(),
+          amount: _amountController.text.trim(),
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Service added Successfully')),
+        );
+
+        Navigator.pop(context);
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration failed: $e')),
+        );
+      }
     }
   }
 
