@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
 import 'package:wed_crew/view/user_modules/user_register/service/user_reg_service.dart';
-import 'package:wed_crew/view/user_home_page.dart';
+
 
 class UserRegistration extends StatefulWidget {
   const UserRegistration({super.key});
@@ -51,7 +51,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginPage(),
+            builder: (context) => const UserLoginPage(),
           ),
         );
       } catch (e) {
@@ -159,7 +159,7 @@ class _UserRegistrationState extends State<UserRegistration> {
                         Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const LoginPage(),
+                            builder: (context) => const UserLoginPage(),
                         ),
                         );
                     },

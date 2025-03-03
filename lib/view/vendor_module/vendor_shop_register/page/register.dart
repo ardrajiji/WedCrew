@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
+import 'dart:io';
+
+import 'package:wed_crew/view/vendor_module/vendor_shop_register/service/shop_register_service.dart';
 
 class ShopRegistrationPage extends StatefulWidget {
   const ShopRegistrationPage({super.key});
@@ -16,6 +21,51 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _yearsController = TextEditingController();
 
+  File? _shopImage;
+  final ImagePicker _picker = ImagePicker();
+
+
+    // Function to handle form submission
+  Future<void> _submitForm() async {
+    if (_formKey.currentState?.validate() == true) {
+      try {
+        final responseMessage = await shopRegistrationService(
+          name: _shopNameController.text.trim(),
+          email: _emailController.text.trim(),
+          phone: _phoneController.text.trim(),
+          yearInBusiness: _yearsController.text.trim(),
+          address: _addressController.text.trim(),
+          shopImage: _shopImage ??File('assets/image/image.png'),
+          
+        );
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registered successfully')),
+        );
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const VendorLoginPage(),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Registration failed: $e')),
+        );
+      }
+    }
+  }
+
+  Future<void> _pickImage() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _shopImage = File(pickedFile.path);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +81,7 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
           padding: const EdgeInsets.all(25),
           child: Column(
             children: [
-              const SizedBox(height: 20),
+              const SizedBox(height: 50),
               const Text(
                 "Shop Registration",
                 textAlign: TextAlign.center,
@@ -56,17 +106,11 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
                       return null;
                     }),
                     _buildTextField("Phone Number", _phoneController, Icons.phone, (value) {
-  value = value?.trim(); // Trim leading & trailing spaces
-
-  if (value == null || value.isEmpty) {
-    return "Phone number is required";
-  }
-  if (!RegExp(r'^\d{10}$').hasMatch(value)) {
-    return "Enter a valid 10-digit phone number";
-  }
-  return null;
-}, keyboardType: TextInputType.phone),
-
+                      value = value?.trim();
+                      if (value == null || value.isEmpty) return "Phone number is required";
+                      if (!RegExp(r'^\d{10}$').hasMatch(value)) return "Enter a valid 10-digit phone number";
+                      return null;
+                    }, keyboardType: TextInputType.phone),
                     _buildTextField("Email", _emailController, Icons.email, (value) {
                       if (value == null || value.isEmpty) return "Email is required";
                       if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) return "Enter a valid email";
@@ -77,6 +121,24 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
                       if (int.tryParse(value) == null) return "Enter a valid number";
                       return null;
                     }, keyboardType: TextInputType.number),
+                    const SizedBox(height: 20),
+                    // Image Upload Field
+                    Column(
+                      children: [
+                        if (_shopImage != null)
+                          Image.file(_shopImage!, height: 150, width: 150, fit: BoxFit.cover),
+                        const SizedBox(height: 10),
+                        ElevatedButton.icon(
+                          onPressed: _pickImage,
+                          icon: const Icon(Icons.image),
+                          label: const Text("Upload Shop Image"),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueGrey,
+                            foregroundColor: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 20),
                     // Submit Button
                     SizedBox(
@@ -147,12 +209,5 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
     );
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Handle form submission
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Registration Successful")),
-      );
-    }
-  }
+ 
 }

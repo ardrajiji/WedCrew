@@ -3,14 +3,14 @@ import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
 import 'package:wed_crew/view/vendor_module/vendor_register/service/signup_service.dart';
 import 'package:wed_crew/view/vendor_module/vendor_shop_register/page/register.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({super.key});
+class VendorRegistration extends StatefulWidget {
+  const VendorRegistration({super.key});
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<VendorRegistration> createState() => _VendorRegistrationState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _VendorRegistrationState extends State<VendorRegistration> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _nameController = TextEditingController();
@@ -49,7 +49,7 @@ class _SignUpPageState extends State<SignUpPage> {
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const LoginPage(),
+            builder: (context) => const ShopRegistrationPage(),
           ),
         );
       } catch (e) {
@@ -210,7 +210,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const LoginPage()),
+                                  builder: (context) => const UserLoginPage()),
                             );
                           },
                           child: const Text(

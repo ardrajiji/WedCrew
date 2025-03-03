@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
+import 'package:wed_crew/view/register_separation.dart';
+
 
 class OnboardingPage1 extends StatelessWidget {
   const OnboardingPage1({super.key});
@@ -180,7 +181,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => SignUpSelectionPage(),
                             ),
                           );
                         },
@@ -196,7 +197,7 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => LoginPage(),
+                              builder: (context) => SignUpSelectionPage(),
                             ),
                           );
                         } else {

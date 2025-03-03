@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
-import 'package:wed_crew/view/user_modules/user_login/model/login_model.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/model/vendor_login_model.dart';
 
 Future<VendorLoginModel> VendorLoginService({

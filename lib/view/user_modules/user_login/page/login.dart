@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart';
 import 'package:wed_crew/view/user_home_page.dart';
+import 'package:wed_crew/view/user_modules/user_register/page/registration.dart';
 import 'package:wed_crew/view/vendor/vendor_home_page.dart';
-import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+
+class UserLoginPage extends StatefulWidget {
+  const UserLoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<UserLoginPage> createState() => _UserLoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _UserLoginPageState extends State<UserLoginPage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -218,36 +219,12 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const SignUpSelectionPage(),
+                          builder: (context) => const UserRegistration(),
                         ),
                       );
                     },
                     child: const Text(
                       'Sign Up',
-                      style: TextStyle(
-                        color: Color.fromRGBO(38, 138, 76, 1),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-               Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Login as Vendor?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const VendorLoginPage(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      'Click',
                       style: TextStyle(
                         color: Color.fromRGBO(38, 138, 76, 1),
                         fontWeight: FontWeight.bold,

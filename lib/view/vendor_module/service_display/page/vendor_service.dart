@@ -80,7 +80,7 @@ class _VendorServicePageState extends State<VendorServicePage> {
                 children: [
                   Image.asset(
                     'assets/image/noResponse.jpg',
-                    width: 100,
+                    width: 300,
                   ),
                   Text(
                     "Error: ${snapshot.error}",

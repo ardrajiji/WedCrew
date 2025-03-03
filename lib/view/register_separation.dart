@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/user_modules/user_register/page/registration.dart';
-import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
+import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
+import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 
 class SignUpSelectionPage extends StatelessWidget {
   const SignUpSelectionPage({super.key});
@@ -24,7 +24,8 @@ class SignUpSelectionPage extends StatelessWidget {
                     width: double.infinity,
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2), // Glassmorphic effect
+                      color:
+                          Colors.white.withOpacity(0.2), // Glassmorphic effect
                       borderRadius: BorderRadius.circular(20),
                       border: Border.all(color: Colors.white.withOpacity(0.3)),
                       boxShadow: [
@@ -47,19 +48,20 @@ class SignUpSelectionPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 20),
-                        
+
                         // Sign Up as a User Button
                         ElevatedButton(
                           onPressed: () {
-                           Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const UserRegistration(),
-                        ),
-                      );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const UserLoginPage(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: const Color.fromRGBO(194, 154, 119, 1.0),
+                            backgroundColor:
+                                const Color.fromRGBO(194, 154, 119, 1.0),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
@@ -67,7 +69,7 @@ class SignUpSelectionPage extends StatelessWidget {
                             minimumSize: const Size(double.infinity, 50),
                           ),
                           child: const Text(
-                            "Sign Up as a User",
+                            "Login as a User",
                             style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ),
@@ -77,11 +79,11 @@ class SignUpSelectionPage extends StatelessWidget {
                         ElevatedButton(
                           onPressed: () {
                             Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const SignUpPage(),
-                        ),
-                      );
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const VendorLoginPage(),
+                              ),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromRGBO(29, 107, 59, 1),
@@ -92,7 +94,7 @@ class SignUpSelectionPage extends StatelessWidget {
                             minimumSize: const Size(double.infinity, 50),
                           ),
                           child: const Text(
-                            "Sign Up as a Vendor",
+                            "Login as a Vendor",
                             style: TextStyle(fontSize: 16, color: Colors.white),
                           ),
                         ),

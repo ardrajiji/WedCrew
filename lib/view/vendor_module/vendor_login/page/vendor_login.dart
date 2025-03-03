@@ -5,6 +5,7 @@ import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart
 import 'package:wed_crew/view/user_home_page.dart';
 import 'package:wed_crew/view/vendor/vendor_home_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/service/vendor_login_service.dart';
+import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
 
 class VendorLoginPage extends StatefulWidget {
   const VendorLoginPage({super.key});
@@ -191,6 +192,32 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
                                   ),
                           ),
                         ),
+                        SizedBox(height: 15,),
+
+                        Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text("Don't have an account?"),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const VendorRegistration(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      'Sign Up',
+                      style: TextStyle(
+                        color: Color.fromRGBO(38, 138, 76, 1),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
                       ],
                     ),
                   ),
