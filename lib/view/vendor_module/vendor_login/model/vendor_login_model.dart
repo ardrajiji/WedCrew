@@ -12,22 +12,26 @@ class VendorLoginModel {
     String? message;
     int? vendorId;
     String? role;
+    String? status;
 
     VendorLoginModel({
         this.message,
         this.vendorId,
         this.role,
+        this.status,
     });
 
     factory VendorLoginModel.fromJson(Map<String, dynamic> json) => VendorLoginModel(
         message: json["message"],
         vendorId: json["vendor_id"],
         role: json["Role"],
+        status: json["status"],
     );
 
     Map<String, dynamic> toJson() => {
         "message": message,
         "vendor_id": vendorId,
         "Role": role,
+        "status": status,
     };
 }

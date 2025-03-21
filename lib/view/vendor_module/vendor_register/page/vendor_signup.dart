@@ -26,7 +26,7 @@ class _VendorRegistrationState extends State<VendorRegistration> {
   final List<String> _categories = [
     "Photography",
     "Venue Coordinator",
-    "Decor Management",
+    "Decor Coordinator",
     "Beautician"
   ];
 

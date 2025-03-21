@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart';
 
-import 'package:wed_crew/view/user_home_page.dart';
+import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 import 'package:wed_crew/view/vendor/vendor_home_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/service/vendor_login_service.dart';
 import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
@@ -40,7 +40,7 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
           password: _passwordController.text.trim(),
         );
 
-        if (responseMessage.role == 'Vendor') {
+        if (responseMessage.status == 'approved') {
         
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Vendor Login successful')),
@@ -52,7 +52,22 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
               ),
             );
           
-        } else {
+        } 
+       else if (responseMessage.status == 'rejected') {
+        
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Login failed due to invalid data submission.\nPlease correct the errors and try again')),
+            );
+          
+        } 
+         else if (responseMessage.status == 'pending') {
+        
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Your login attempt cannot proceed because your status is still pending')),
+            );
+          
+        } 
+        else {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class BasicPackageBooking extends StatefulWidget {
-  const BasicPackageBooking({super.key});
+class PackageBookingForm extends StatefulWidget {
+  final String package_id;
+  const PackageBookingForm({super.key,
+  required this.package_id,});
 
   @override
-  _BasicPackageBookingState createState() => _BasicPackageBookingState();
+  _PackageBookingFormState createState() => _PackageBookingFormState();
 }
 
-class _BasicPackageBookingState extends State<BasicPackageBooking> {
+class _PackageBookingFormState extends State<PackageBookingForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
@@ -38,15 +40,7 @@ class _BasicPackageBookingState extends State<BasicPackageBooking> {
         padding: EdgeInsets.all(16),
         child: Column(
           children: [
-            // Logo
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                'assets/icons/wedcrewLogo.png',
-                height: 80,
-              ),
-            ),
-            SizedBox(height: 10),
+          
 
             // Header Text
             Text(

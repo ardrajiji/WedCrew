@@ -1,10 +1,11 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/user_home_page.dart';
+import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 import 'package:wed_crew/view/user_view_bookings.dart';
 import 'package:wed_crew/view/vendor/vendor_booking.dart';
-import 'package:wed_crew/view/vendor/vendor_profile.dart';
+import 'package:wed_crew/view/vendor_module/portfolio/page/protfoilo_page.dart';
+import 'package:wed_crew/view/vendor_module/vendor_profile/page/vendor_profile.dart';
 import 'package:wed_crew/view/vendor_module/service_display/page/vendor_service.dart';
 import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
 
@@ -188,7 +189,8 @@ class _VendorHomePagesState extends State<VendorHomePages> {
               ),
                VendorServicePage(),
                ViewBookingPage(),
-               VendorProfilePage(),
+               //ShopPortfolioPage(),
+               VendorProfileScreen(),
             ],
           ),
         ],
@@ -203,11 +205,13 @@ class _VendorHomePagesState extends State<VendorHomePages> {
           BottomNavigationBarItem(
               icon: Icon(Icons.manage_search, size: 30), label: ''),
           BottomNavigationBarItem(
+              icon: Icon(Icons.image, size: 30), label: ''),
+          BottomNavigationBarItem(
               icon: Icon(Icons.account_circle, size: 30), label: ''),
         ],
         type: BottomNavigationBarType.fixed,
-        selectedItemColor:  Colors.grey,
-        unselectedItemColor:  Colors.black,
+        selectedItemColor:  Colors.black,
+        unselectedItemColor:  Colors.grey,
       ),
     );
   }

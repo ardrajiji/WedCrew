@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/introduction_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:wed_crew/view/vendor/vendor_profile.dart';
+import 'package:wed_crew/view/vendor_module/vendor_profile/page/vendor_profile.dart';
 
 
 void main() {
@@ -46,25 +46,21 @@ class _MyAppState extends State<MyApp> {
       home: //const OnboardingPage1(),
      // home: VendorHomePage(),
       
-       AnimatedSplashScreen(
-        splash: Image.asset(
-          'assets/icons/wedcrewLogo.png',
-          height: 150, // Set the height
-          width: 150, // Set the width
-          fit: BoxFit.cover, // Adjust how the image fits its container
-          // color: Colors.green, // Apply a tint color with transparency
-          alignment: Alignment.center, // Align the image within its container
-          
+      AnimatedSplashScreen(
+        splash: Center(
+          child: Image.asset(
+            'assets/icons/wedcrewLogo.png',
+            height: 200, // Set the height
+            width: 200, // Set the width
+            fit: BoxFit.contain, // Ensure the image fits within the container without cropping
+          ),
         ),
-
-        splashTransition: SplashTransition.scaleTransition,
-        // Center(
-        // child: Text(r
-        //   'Splash Screen',style: TextStyle(fontSize: 17),
-
-        // ),
-        // ),
-        nextScreen: OnboardingPage1(),
+        backgroundColor: Colors.white, // Background color of the splash screen
+        splashTransition: SplashTransition.scaleTransition, // Use scale transition
+        nextScreen: const OnboardingPage1(), // Next screen after splash
+        duration: 3000, // Duration of the splash screen
+        splashIconSize: 250, // Increase the size of the splash icon container
+        centered: true, // Center the splash widget
       ),
     );
   }

@@ -25,7 +25,7 @@ Future<VendorShopRegister> shopRegistrationService({
     request.fields['email'] = email;
     request.fields['mobile_no'] = phone;
     request.fields['year_in_business'] = yearInBusiness;
-    request.fields['vendor'] = 11.toString();
+    request.fields['vendor'] = 19.toString();
 
     // Add the image file
     var imageStream = http.ByteStream(shopImage.openRead());

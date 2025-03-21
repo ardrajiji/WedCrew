@@ -3,40 +3,53 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
-import 'package:wed_crew/view/vendor_module/service_add/model/service_add_model.dart';
+import 'package:wed_crew/view/vendor_module/vendor_shop_register/model/shop_register_model.dart';
 
-Future<VendorServiceAddModel> vendorAddService({
+Future<VendorShopRegister> vendorAddService({
   required String service_name,
   required String details,
-  required String amount,
- 
+  required String amount, 
+  required File image,
 }) async {
   try {
-    Map<String, dynamic> param = {
-      "service_name": service_name,
-      "details": details,
-      "total_amount": amount,
-      "vendor" : 8,
-      
-    };
+    // Create a multipart request
+    var request = http.MultipartRequest("POST", Uri.parse(UserUrl.vendor_service_add));
 
-    final response = await http.post(
-      Uri.parse(UserUrl.vendor_service_add),
-      body: jsonEncode(param),
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    );
-  final dynamic decoded = jsonDecode(response.body);
-    if (response.statusCode == 200) {
+    // Get service centre ID
+   // int serviceCentreId = await LocalStorage.getServiceCentreId();
+    // Add text fields
+    request.fields['service_name'] = service_name;
+    request.fields['details'] = details;
+    request.fields['total_amount'] = amount;
+    request.fields['vendor'] = 19.toString();
     
-      final response = VendorServiceAddModel.fromJson(decoded);
 
+    // Add the image file
+    var imageStream = http.ByteStream(image.openRead());
+    var imageLength = await image.length();
+    var multiPartFile = http.MultipartFile(
+      'image',
+      imageStream,
+      imageLength,
+      filename: image.path.split("/").last,
+    );
+    request.files.add(multiPartFile);
+
+    // Send request
+    final resp = await request.send();
+
+    // Convert the response stream to a string
+    final responseBody = await resp.stream.bytesToString();
+
+    if (resp.statusCode == 201) {
+      final dynamic decoded = jsonDecode(responseBody);
+      final VendorShopRegister response =
+          VendorShopRegister.fromJson(decoded);
       return response;
     } else {
-      final Map<String, dynamic> errorResponse = jsonDecode(response.body);
+      final Map<String, dynamic> errorResponse = jsonDecode(responseBody);
       throw Exception(
-        'Failed to register: ${errorResponse['message'] ?? 'Unknown error'}',
+        'Failed to add products: ${errorResponse['message'] ?? 'Unknown error'}',
       );
     }
   } on SocketException {
