@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:wed_crew/view/user_modules/package_book_form/service/booking_form_service.dart';
+import 'package:wed_crew/view/user_modules/package_payment/page/package_payment.dart';
 
 class PackageBookingForm extends StatefulWidget {
   final String package_id;
+  final String amount;
   const PackageBookingForm({super.key,
-  required this.package_id,});
+  required this.package_id,
+  required this.amount});
 
   @override
   _PackageBookingFormState createState() => _PackageBookingFormState();
@@ -19,22 +23,51 @@ class _PackageBookingFormState extends State<PackageBookingForm> {
   final TextEditingController _dateController = TextEditingController();
   final TextEditingController _participantsController = TextEditingController();
 
-  // Function to validate and submit the form
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Process form data
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Form Submitted Successfully!")),
-      );
+  
+  // Function to handle form submission
+  Future<void> _submitForm() async {
+    if (_formKey.currentState?.validate() == true) {
+      try {
+        final responseMessage = await userbookService(
+          name: _nameController.text.trim(),
+          email: _emailController.text.trim(),
+          mobile_number: _mobileController.text.trim(), 
+          location:_locationController.text.trim(), 
+          date_of_marriage: _dateController.text.trim(), 
+          number_of_participants:_participantsController.text.trim(),          
+          package_id: widget.package_id, 
+         
+        );
+        if (responseMessage.message == 'Booking created successfully!') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Booking created successfully!')),
+          );
+         Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UserPayment(total_price:widget.amount, booking_id:responseMessage.id.toString(),),
+          ),
+        );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(responseMessage.message ?? "Unknown error")),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Booking  failed: $e')),
+        );
+      }
     }
   }
+   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Wedding Inquiry Form"),
-        backgroundColor: Colors.white10,
+        backgroundColor:  const Color.fromARGB(255, 41, 163, 94),
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
@@ -47,9 +80,9 @@ class _PackageBookingFormState extends State<PackageBookingForm> {
               "Please let us know a little about yourself",
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: Colors.black,
+                color: const Color.fromARGB(255, 0, 0, 0),
               ),
             ),
             SizedBox(height: 20),
@@ -125,7 +158,7 @@ class _PackageBookingFormState extends State<PackageBookingForm> {
                     child: ElevatedButton(
                       onPressed: _submitForm,
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.black,
+                        backgroundColor: const Color.fromARGB(255, 27, 95, 51),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12),
                         ),

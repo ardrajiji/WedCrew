@@ -25,7 +25,7 @@ Future<VendorShopRegister> shopRegistrationService({
     request.fields['email'] = email;
     request.fields['mobile_no'] = phone;
     request.fields['year_in_business'] = yearInBusiness;
-    request.fields['vendor'] = 19.toString();
+    request.fields['vendor'] = 4.toString();
 
     // Add the image file
     var imageStream = http.ByteStream(shopImage.openRead());
@@ -52,7 +52,7 @@ Future<VendorShopRegister> shopRegistrationService({
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(responseBody);
       throw Exception(
-        'Failed to add products: ${errorResponse['message'] ?? 'Unknown error'}',
+        'Failed to register : ${errorResponse['message'] ?? 'Unknown error'}',
       );
     }
   } on SocketException {

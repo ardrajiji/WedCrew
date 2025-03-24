@@ -31,7 +31,7 @@ Future<VedorRegistrationModel> vendorRegistrationService({
       },
     );
   final dynamic decoded = jsonDecode(response.body);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 201) {
     
       final response = VedorRegistrationModel.fromJson(decoded);
 

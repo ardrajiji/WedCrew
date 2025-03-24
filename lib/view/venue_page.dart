@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/photography_single_page.dart';
+import 'package:wed_crew/view/user_modules/photography_list/page/photography_single_page.dart';
 
 class VenuePage extends StatefulWidget {
   const VenuePage({super.key});

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/photography_list_page.dart';
+import 'package:wed_crew/view/user_modules/photography_list/page/photography_list_page.dart';
 import 'package:wed_crew/view/venue_page.dart';
 import 'package:wed_crew/view/decoration_page.dart';
 import 'package:wed_crew/view/makeup_page.dart';

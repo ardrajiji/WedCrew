@@ -189,7 +189,7 @@ class _VendorHomePagesState extends State<VendorHomePages> {
               ),
                VendorServicePage(),
                ViewBookingPage(),
-               //ShopPortfolioPage(),
+               ShopPortfolioPage(),
                VendorProfileScreen(),
             ],
           ),

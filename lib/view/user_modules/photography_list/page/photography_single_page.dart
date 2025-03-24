@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/photography_booking_page.dart';
+import 'package:wed_crew/view/user_modules/photography_list/model/photography_model.dart';
 
 class PhotographyVendorPage extends StatefulWidget {
-  const PhotographyVendorPage({super.key});
+  const PhotographyVendorPage({super.key, required PhotographyModel studio});
 
   @override
   _PhotographyVendorPageState createState() => _PhotographyVendorPageState();

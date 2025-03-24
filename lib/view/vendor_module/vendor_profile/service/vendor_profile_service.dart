@@ -12,7 +12,7 @@ Future<VendorProfileModel> vendorProfileService() async {
 
     Map<String, dynamic> params = {
       //'id': userId.toString(),
-      'vendor_id' : 19.toString(),
+      'vendor_id' : 2.toString(),
     };
 
     final resp = await http.get(
