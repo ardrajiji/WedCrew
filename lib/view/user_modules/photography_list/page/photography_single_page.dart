@@ -1,37 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/photography_booking_page.dart';
 import 'package:wed_crew/view/user_modules/photography_list/model/photography_model.dart';
 
 class PhotographyVendorPage extends StatefulWidget {
-  const PhotographyVendorPage({super.key, required PhotographyModel studio});
+  final PhotographyModel studio;
+  
+  const PhotographyVendorPage({super.key, required this.studio});
 
   @override
   _PhotographyVendorPageState createState() => _PhotographyVendorPageState();
 }
 
 class _PhotographyVendorPageState extends State<PhotographyVendorPage> {
-  final Map<String, dynamic> vendor = {
-    'name': 'Studio One Photography',
-    'address': '123, Photography Street, Thrissur, Kerala, India',
-    'phone': '+91 9876543210',
-    'email': 'studioone@email.com',
-    'price': 150000.0,
-    'images': [
-      'assets/image/photography.jpg',
-      'assets/image/photography.jpg',
-      'assets/image/photography.jpg',
-      'assets/image/photography.jpg',
-      'assets/image/photography.jpg',
-    ],
-  };
-
   int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
+    final studio = widget.studio;
+    final workImages = studio.workImages ?? [];
+    //final firstImage = workImages.isNotEmpty ? workImages[0].image : null;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(vendor['name']),
+        title: Text(studio.name ?? 'Photography Studio'),
         backgroundColor: Colors.black,
         elevation: 0,
       ),
@@ -42,86 +34,116 @@ class _PhotographyVendorPageState extends State<PhotographyVendorPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Large Swipable Image Gallery
-              SizedBox(
-                height: 300,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    PageView.builder(
-                      itemCount: vendor['images'].length,
-                      onPageChanged: (index) {
-                        setState(() {
-                          _currentIndex = index;
-                        });
-                      },
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () => _showFullScreenImage(context, vendor['images'][index]),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(12),
-                            child: Image.asset(
-                              vendor['images'][index],
-                              width: double.infinity,
-                              fit: BoxFit.cover,
+              if (workImages.isNotEmpty)
+                SizedBox(
+                  height: 300,
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      PageView.builder(
+                        itemCount: workImages.length,
+                        onPageChanged: (index) {
+                          setState(() {
+                            _currentIndex = index;
+                          });
+                        },
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            onTap: () => _showFullScreenImage(
+                                context, '${UserUrl.baseUrl}/${workImages[index].image}'),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(12),
+                              child: Image.network(
+                                '${UserUrl.baseUrl}/${workImages[index].image}',
+                                width: double.infinity,
+                                fit: BoxFit.cover,
+                                errorBuilder: (context, error, stackTrace) =>
+                                    Container(
+                                  color: Colors.grey[300],
+                                  child: const Center(
+                                    child: Icon(Icons.broken_image,
+                                        size: 50, color: Colors.grey),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                    // Indicator Dots
-                    Positioned(
-                      bottom: 10,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          vendor['images'].length,
-                          (index) => Container(
-                            margin: EdgeInsets.symmetric(horizontal: 4),
-                            width: _currentIndex == index ? 12 : 8,
-                            height: _currentIndex == index ? 12 : 8,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: _currentIndex == index ? Colors.white : Colors.grey,
+                          );
+                        },
+                      ),
+                      // Indicator Dots
+                      Positioned(
+                        bottom: 10,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: List.generate(
+                            workImages.length,
+                            (index) => Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 4),
+                              width: _currentIndex == index ? 12 : 8,
+                              height: _currentIndex == index ? 12 : 8,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: _currentIndex == index
+                                    ? Colors.white
+                                    : Colors.grey,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
+                )
+              else
+                Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: const Center(
+                    child: Icon(Icons.photo_camera, size: 50, color: Colors.grey),
+                  ),
                 ),
-              ),
 
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               // Studio Details Card
               Card(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
                 elevation: 4,
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(vendor['name'],
-                          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black)),
-                      SizedBox(height: 10),
-                      _buildDetailRow(Icons.location_on, vendor['address']),
-                      _buildDetailRow(Icons.phone, vendor['phone']),
-                      _buildDetailRow(Icons.email, vendor['email']),
-                      _buildDetailRow(Icons.money, "Starts from ₹${vendor['price']}"),
+                      Text(
+                        studio.name ?? 'Photography Studio',
+                        style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black),
+                      ),
+                      const SizedBox(height: 10),
+                      _buildDetailRow(Icons.location_on, studio.address ?? 'Address not available'),
+                      _buildDetailRow(Icons.phone, studio.mobileNo ?? 'Phone not available'),
+                      _buildDetailRow(Icons.email, studio.email ?? 'Email not available'),
+                      _buildDetailRow(Icons.money, "Years in business: ${studio.yearInBusiness ?? 'N/A'}"),
                     ],
                   ),
                 ),
               ),
 
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
 
               // View Services Button
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 40, vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -134,7 +156,7 @@ class _PhotographyVendorPageState extends State<PhotographyVendorPage> {
                       ),
                     );
                   },
-                  child: Text("View Services",
+                  child: const Text("View Services",
                       style: TextStyle(fontSize: 18, color: Colors.white)),
                 ),
               ),
@@ -146,30 +168,46 @@ class _PhotographyVendorPageState extends State<PhotographyVendorPage> {
   }
 
   // Widget for Studio Details Row
-  Widget _buildDetailRow(IconData icon, String text) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
-      child: Row(
-        children: [
-          Icon(icon, color: Colors.grey),
-          SizedBox(width: 8),
-          Expanded(
-            child: Text(text, style: TextStyle(fontSize: 16, color: Colors.black)),
-          ),
-        ],
-      ),
-    );
+  Widget _buildDetailRow(IconData icon, String? text) {
+  if (text == null || text.isEmpty) {
+    return const SizedBox(); // Return empty widget if no data
   }
+  
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 8.0),
+    child: Row(
+      children: [
+        Icon(icon, color: Colors.grey),
+        const SizedBox(width: 8),
+        Expanded(
+          child: Text(
+            text,
+            style: const TextStyle(fontSize: 16, color: Colors.black),
+          ),
+        ),
+      ],
+    ),
+  );
+}
 
   // Full-Screen Image Viewer
-  void _showFullScreenImage(BuildContext context, String imagePath) {
+  void _showFullScreenImage(BuildContext context, String imageUrl) {
     showDialog(
       context: context,
       builder: (_) => Dialog(
         backgroundColor: Colors.transparent,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(12),
-          child: Image.asset(imagePath, fit: BoxFit.cover),
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.contain,
+            errorBuilder: (context, error, stackTrace) => Container(
+              color: Colors.grey[300],
+              child: const Center(
+                child: Icon(Icons.broken_image, size: 50, color: Colors.grey),
+              ),
+            ),
+          ),
         ),
       ),
     );

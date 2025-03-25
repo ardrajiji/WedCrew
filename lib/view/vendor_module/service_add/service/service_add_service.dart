@@ -21,7 +21,7 @@ Future<VendorShopRegister> vendorAddService({
     request.fields['service_name'] = service_name;
     request.fields['details'] = details;
     request.fields['total_amount'] = amount;
-    request.fields['vendor'] = 3.toString();
+    request.fields['vendor'] = 9.toString();
     
 
     // Add the image file

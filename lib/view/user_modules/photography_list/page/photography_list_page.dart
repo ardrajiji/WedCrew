@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/photography_list/page/photography_single_page.dart';
 import 'package:wed_crew/view/user_modules/photography_list/model/photography_model.dart';
 import 'package:wed_crew/view/user_modules/photography_list/service/photography_service.dart';
@@ -32,7 +33,7 @@ class _PhotographyPageState extends State<PhotographyPage> {
     setState(() {
       _filteredStudios = _allStudios
           .where((studio) =>
-              studio.name?.toLowerCase().contains(query.toLowerCase()) ?? false)
+              studio.name.toLowerCase().contains(query.toLowerCase()) ?? false)
           .toList();
     });
   }
@@ -85,8 +86,8 @@ class _PhotographyPageState extends State<PhotographyPage> {
                   return Center(
                     child: Text(
                       "Error: ${snapshot.error}",
-                      style: const TextStyle(
-                          fontSize: 18, color: Colors.black54),
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.black54),
                     ),
                   );
                 }
@@ -103,8 +104,8 @@ class _PhotographyPageState extends State<PhotographyPage> {
                   itemCount: _filteredStudios.length,
                   itemBuilder: (context, index) {
                     final studio = _filteredStudios[index];
-                    final firstImage = studio.workImages?.isNotEmpty == true
-                        ? studio.workImages![0].image
+                    final firstImage = studio.workImages.isNotEmpty == true
+                        ? studio.workImages[0].image
                         : null;
 
                     return Padding(
@@ -130,32 +131,22 @@ class _PhotographyPageState extends State<PhotographyPage> {
                           child: Stack(
                             children: [
                               // Background Image
-                              if (firstImage != null)
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(15),
-                                  child: Image.network(
-                                    firstImage,
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(15),
+                                child: Image.network(
+                                  '${UserUrl.baseUrl}/${studio.shopImage}',
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: 180,
+                                  errorBuilder: (context, error, stackTrace) =>
+                                      Image.asset(
+                                    'assets/image/Homephotographer.jpg', // Path to your default image
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 180,
-                                    errorBuilder: (context, error, stackTrace) =>
-                                        Container(
-                                      color: Colors.grey[300],
-                                      height: 180,
-                                      child: const Icon(Icons.broken_image,
-                                          size: 50, color: Colors.grey),
-                                    ),
-                                  ),
-                                )
-                              else
-                                Container(
-                                  height: 180,
-                                  color: Colors.grey[300],
-                                  child: const Center(
-                                    child: Icon(Icons.photo_camera,
-                                        size: 50, color: Colors.grey),
                                   ),
                                 ),
+                              ),
 
                               // Dark overlay
                               Container(
@@ -197,7 +188,8 @@ class _PhotographyPageState extends State<PhotographyPage> {
                                         const SizedBox(width: 5),
                                         Expanded(
                                           child: Text(
-                                            studio.address ?? 'Location not available',
+                                            studio.address ??
+                                                'Location not available',
                                             style: const TextStyle(
                                               fontSize: 16,
                                               color: Colors.white,
