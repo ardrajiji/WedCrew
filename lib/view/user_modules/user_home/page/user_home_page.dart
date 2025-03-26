@@ -4,11 +4,12 @@ import 'package:wed_crew/view/constants/urls.dart';
 
 import 'package:wed_crew/view/luxury_package_home.dart';
 import 'package:wed_crew/view/premium_package_home.dart';
-import 'package:wed_crew/view/service_list_page.dart';
+import 'package:wed_crew/view/user_modules/booking_status/page/bookinglist_page.dart';
+import 'package:wed_crew/view/user_modules/service_list_page.dart';
 import 'package:wed_crew/view/user_modules/package_content/page/package_details.dart';
 import 'package:wed_crew/view/user_modules/user_home/model/home_model.dart';
 import 'package:wed_crew/view/user_modules/user_home/service/home_service.dart';
-import 'package:wed_crew/view/user_profile.dart';
+import 'package:wed_crew/view/user_modules/profile/page/user_profile.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -54,7 +55,9 @@ class _UserHomePageState extends State<UserHomePage> {
         children: [
           _buildHomePage(),
           ServiceListPage(),
-          const UserProfile(),
+          BookingDetailsPage(),
+           UserProfile(),
+          
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -64,11 +67,13 @@ class _UserHomePageState extends State<UserHomePage> {
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.search, size: 30), label: 'Services'),
+          BottomNavigationBarItem(icon: Icon(Icons.refresh, size: 30), label: 'Bookings'),
           BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
         ],
         type: BottomNavigationBarType.fixed,
         selectedItemColor: const Color.fromRGBO(34, 125, 69, 1),
         unselectedItemColor: Colors.grey,
+        
       ),
     );
   }

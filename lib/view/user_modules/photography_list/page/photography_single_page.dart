@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/constants/urls.dart';
-import 'package:wed_crew/view/photography_booking_page.dart';
+import 'package:wed_crew/view/user_modules/photography_services/page/photography_booking_page.dart';
 import 'package:wed_crew/view/user_modules/photography_list/model/photography_model.dart';
 
 class PhotographyVendorPage extends StatefulWidget {
@@ -152,7 +152,7 @@ class _PhotographyVendorPageState extends State<PhotographyVendorPage> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => PhotographyVendorDetailsPage(),
+                        builder: (context) => PhotographyServicePage(vendor_id:studio.vendor.toString() ,),
                       ),
                     );
                   },

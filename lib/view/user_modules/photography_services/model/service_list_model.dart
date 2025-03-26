@@ -10,12 +10,14 @@ String serviceListModelToJson(List<ServiceListModel> data) => json.encode(List<d
 
 class ServiceListModel {
     int? id;
+    String? serviceName;
     String? details;
     String? totalAmount;
     int? vendorId;
 
     ServiceListModel({
         this.id,
+        this.serviceName,
         this.details,
         this.totalAmount,
         this.vendorId,
@@ -23,6 +25,7 @@ class ServiceListModel {
 
     factory ServiceListModel.fromJson(Map<String, dynamic> json) => ServiceListModel(
         id: json["id"],
+        serviceName: json["service_name"],
         details: json["details"],
         totalAmount: json["total_amount"],
         vendorId: json["vendor_id"],
@@ -30,6 +33,7 @@ class ServiceListModel {
 
     Map<String, dynamic> toJson() => {
         "id": id,
+        "service_name": serviceName,
         "details": details,
         "total_amount": totalAmount,
         "vendor_id": vendorId,

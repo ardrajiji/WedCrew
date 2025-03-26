@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 import 'package:wed_crew/view/user_view_bookings.dart';
-import 'package:wed_crew/view/vendor/vendor_booking.dart';
+import 'package:wed_crew/view/vendor_module/bookigs_view/page/vendor_booking.dart';
 import 'package:wed_crew/view/vendor_module/portfolio/page/protfoilo_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_profile/page/vendor_profile.dart';
 import 'package:wed_crew/view/vendor_module/service_display/page/vendor_service.dart';
