@@ -16,9 +16,9 @@ class UserUrl {
   static const String Photographyservice ="$userbaseUrl/servicesdetails/";
   static const String Photographybooking ="$userbaseUrl/servicebookings/";
   static const String bookingHistory ="$userbaseUrl/user_service_bookings/";
-
   static const String userProfile ="$userbaseUrl/user/profile/";
-   static const String feedback ="$userbaseUrl/user-feedbacks/";
+  static const String feedback ="$userbaseUrl/user-feedbacks/";
+   static const String venue ="$userbaseUrl/venue-coordinator/";
 
 
   static const String vendor_register ="$vendorbaseUrl/vendors/";

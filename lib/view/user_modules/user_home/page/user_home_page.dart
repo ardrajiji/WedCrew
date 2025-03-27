@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:wed_crew/view/constants/urls.dart';
-
-import 'package:wed_crew/view/luxury_package_home.dart';
-import 'package:wed_crew/view/premium_package_home.dart';
 import 'package:wed_crew/view/user_modules/booking_status/page/bookinglist_page.dart';
 import 'package:wed_crew/view/user_modules/service_list_page.dart';
 import 'package:wed_crew/view/user_modules/package_content/page/package_details.dart';
@@ -20,9 +17,9 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   final List<Map<String, dynamic>> packages = [
-   // {'image': 'assets/image/basic.png', 'page': PackageDetailsPage(package_id: '',)},
-    {'image': 'assets/image/premium.png', 'page': PremiumPackageHome()},
-    {'image': 'assets/image/luxury.png', 'page': LuxuryPackageHome()},
+    {'image': 'assets/image/img1.png', },
+    {'image': 'assets/image/img3.png',},
+    {'image': 'assets/image/photographer2.jpg',},
   ];
 
   int _currentIndex = 0;
@@ -79,34 +76,53 @@ class _UserHomePageState extends State<UserHomePage> {
   }
 
   Widget _buildHomePage() {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 50),
-            const Text("Welcome to WedCrew",
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Color.fromRGBO(34, 125, 69, 1))),
-            
-            const SizedBox(height: 20),
-           
-            _buildCarousel(),
-            const SizedBox(height: 40),
-             const Text('Select Your Wedding Package',
-                style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Color.fromRGBO(34, 125, 69, 1))),
-            const SizedBox(height: 20),
-            const SizedBox(height: 20),
-            _buildPackageSelection(),
-            // const Text('Our Services',
-            //     style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold, color: Color.fromRGBO(34, 125, 69, 1))),
-            // // const SizedBox(height: 10),
-            // _buildServiceList(),
-          ],
+  return Stack(
+    children: [
+      // Background Image
+      Positioned.fill(
+        child: Image.asset(
+          'assets\image\photographer2.jpg', // Replace with your image path
+          fit: BoxFit.cover, // Ensures the image covers the entire screen
         ),
       ),
-    );
-  }
+
+      // Content
+      SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 50),
+              const Text(
+                "Welcome to WedCrew",
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white, // Ensures text is visible on the background
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildCarousel(),
+              const SizedBox(height: 40),
+              const Text(
+                'Select Your Wedding Package',
+                style: TextStyle(
+                  fontSize: 19,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white, // Adjust for visibility
+                ),
+              ),
+              const SizedBox(height: 20),
+              _buildPackageSelection(),
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+
 
   Widget _buildPackageSelection() {
     return FutureBuilder<List<HomePackageModel>>(

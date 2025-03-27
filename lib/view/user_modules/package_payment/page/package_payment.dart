@@ -130,7 +130,7 @@ class UserPaymentState extends State<UserPayment> {
       );
 
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(responseMessage.message ?? 'Payment Successful')),
+        SnackBar(content: Text(responseMessage.message ?? 'Google Pay payment successful!')),
       );
 
       Navigator.push(
@@ -156,7 +156,7 @@ class UserPaymentState extends State<UserPayment> {
         amount:widget.total_price,
       );
 
-      if (responseMessage.message == 'UPI Payment Successful, Booking Status Updated') {
+      if (responseMessage.message == 'Google Pay payment successful!') {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('UPI Payment Successful')),
         );

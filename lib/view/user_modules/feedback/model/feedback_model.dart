@@ -9,6 +9,7 @@ FeedbackModel feedbackModelFromJson(String str) => FeedbackModel.fromJson(json.d
 String feedbackModelToJson(FeedbackModel data) => json.encode(data.toJson());
 
 class FeedbackModel {
+    String? status;
     int? id;
     String? text;
     int? rating;
@@ -16,6 +17,7 @@ class FeedbackModel {
     int? user;
 
     FeedbackModel({
+        this.status,
         this.id,
         this.text,
         this.rating,
@@ -24,6 +26,7 @@ class FeedbackModel {
     });
 
     factory FeedbackModel.fromJson(Map<String, dynamic> json) => FeedbackModel(
+        status: json["status"],
         id: json["id"],
         text: json["text"],
         rating: json["rating"],
@@ -32,6 +35,7 @@ class FeedbackModel {
     );
 
     Map<String, dynamic> toJson() => {
+        "status": status,
         "id": id,
         "text": text,
         "rating": rating,

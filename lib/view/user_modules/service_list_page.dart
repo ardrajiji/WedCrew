@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/photography_list/page/photography_list_page.dart';
-import 'package:wed_crew/view/venue_page.dart';
-import 'package:wed_crew/view/decoration_page.dart';
+
+import 'package:wed_crew/view/user_modules/decoration_list/page/decoration_page.dart';
 import 'package:wed_crew/view/makeup_page.dart';
+import 'package:wed_crew/view/user_modules/venue_list/page/venue_list.dart';
 
 class ServiceListPage extends StatelessWidget {
   ServiceListPage({super.key});
@@ -16,7 +17,7 @@ class ServiceListPage extends StatelessWidget {
     {
       'title': 'Venue',
       'image': 'assets/image/decor2.jpg',
-      'page': VenuePage(),
+      'page': VenueListPage(),
     },
     {
       'title': 'Decoration',

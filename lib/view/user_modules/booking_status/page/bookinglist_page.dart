@@ -18,9 +18,7 @@ class BookingDetailsPage extends StatelessWidget {
         future: servicehistoryList(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return const Center(child: CircularProgressIndicator());
           }
 
           if (snapshot.hasError) {
@@ -49,9 +47,7 @@ class BookingDetailsPage extends StatelessWidget {
             return Center(
               child: Text(
                 "No bookings found",
-                style: TextStyle(
-                  fontSize: screenSize.width * 0.045,
-                ),
+                style: TextStyle(fontSize: screenSize.width * 0.045),
               ),
             );
           }
@@ -94,19 +90,14 @@ class BookingDetailsPage extends StatelessWidget {
 
     return Card(
       elevation: 4,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 12,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
                 color: _getStatusColor(status),
                 borderRadius: BorderRadius.circular(20),
@@ -120,17 +111,12 @@ class BookingDetailsPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  serviceName,
-                  style: TextStyle(
-                    fontSize: isWideScreen ? 22 : 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ],
+            Text(
+              serviceName,
+              style: TextStyle(
+                fontSize: isWideScreen ? 22 : 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             _buildDetailRow("Date", _formatDate(date), isWideScreen),
@@ -142,9 +128,7 @@ class BookingDetailsPage extends StatelessWidget {
               children: [
                 Text(
                   "Advance Payment:",
-                  style: TextStyle(
-                    fontSize: isWideScreen ? 18 : 16,
-                  ),
+                  style: TextStyle(fontSize: isWideScreen ? 18 : 16),
                 ),
                 Text(
                   price,
@@ -180,17 +164,13 @@ class BookingDetailsPage extends StatelessWidget {
             width: isWideScreen ? 120 : 80,
             child: Text(
               "$label:",
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
           Expanded(
             child: Text(
               value,
-              style: const TextStyle(
-                color: Colors.grey,
-              ),
+              style: const TextStyle(color: Colors.grey),
             ),
           ),
         ],
@@ -206,7 +186,7 @@ class BookingDetailsPage extends StatelessWidget {
         return Colors.green;
       case 'rejected':
         return Colors.red;
-      case 'pending':
+      case 'cancelled':
         return Colors.orange;
       default:
         return Colors.grey;
