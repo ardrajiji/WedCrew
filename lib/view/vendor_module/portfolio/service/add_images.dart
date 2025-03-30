@@ -10,12 +10,13 @@ Future<ShopAddModel> addImages({
   try {
     var request = http.MultipartRequest("PUT", Uri.parse(UserUrl.shopImages));
     request.fields['vendor_id'] = 2.toString();
+print("API URL: ${UserUrl.shopImages}");
 
     for (var image in productImages) {
       var imageStream = http.ByteStream(image.openRead());
       var imageLength = await image.length();
       var multipartFile = http.MultipartFile(
-        'work_images[]',
+        'work_images',
         imageStream,
         imageLength,
         filename: image.path.split("/").last,

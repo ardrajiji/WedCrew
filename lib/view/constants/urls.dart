@@ -18,7 +18,9 @@ class UserUrl {
   static const String bookingHistory ="$userbaseUrl/user_service_bookings/";
   static const String userProfile ="$userbaseUrl/user/profile/";
   static const String feedback ="$userbaseUrl/user-feedbacks/";
-   static const String venue ="$userbaseUrl/venue-coordinator/";
+  static const String venue ="$userbaseUrl/venue-coordinator/";
+  static const String beautician ="$userbaseUrl/beautician/";
+  static const String decor ="$userbaseUrl/decor-coordinator/";
 
 
   static const String vendor_register ="$vendorbaseUrl/vendors/";
@@ -29,7 +31,6 @@ class UserUrl {
   static const String vendor_profile ="$vendorbaseUrl/profile/";
   static const String shopView ="$vendorbaseUrl/view-shop/";
   static const String shopImages ="$vendorbaseUrl/update-shop/";
-
   static const String viewbookings ="$vendorbaseUrl/vendor_service_bookings/";
   static const String  confirm="$vendorbaseUrl/booking/confirm/";
   static const String  reject="$vendorbaseUrl/booking/reject/";

@@ -69,14 +69,19 @@ class UserProfile extends StatelessWidget {
                     'Phone Number', profile.phone ?? 'Not available'),
                 const SizedBox(height: 30),
                 Row(
-                 mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    
-                     ElevatedButton.icon(
+                    ElevatedButton.icon(
                       onPressed: () {
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedbackScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FeedbackScreen()));
                       },
-                      icon: const Icon(Icons.feedback,color: Colors.white,),
+                      icon: const Icon(
+                        Icons.feedback,
+                        color: Colors.white,
+                      ),
                       label: const Text('Feedback'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(
@@ -86,27 +91,57 @@ class UserProfile extends StatelessWidget {
                             horizontal: 24, vertical: 12),
                       ),
                     ),
-
-                    SizedBox(width: 20,),
-                  
+                    SizedBox(
+                      width: 20,
+                    ),
                     ElevatedButton.icon(
                       onPressed: () {
-                         //Navigator.push(context, MaterialPageRoute(builder: (context) => const FeedbackScreen()));
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Logout"),
+                              content: const Text(
+                                  "Are you sure you want to logout?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Close dialog
+                                  },
+                                  child: const Text("Cancel"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Close dialog
+                                    // Perform logout action
+                                    // Example: Navigate to login screen
+                                    Navigator.pushReplacementNamed(
+                                        context, '/login');
+                                  },
+                                  child: const Text("Logout",
+                                      style: TextStyle(color: Colors.red)),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
-                      icon: const Icon(Icons.logout,color: Colors.white,),
+                      icon: const Icon(Icons.logout, color: Colors.white),
                       label: const Text('Logout'),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color.fromARGB(
-                            255, 40, 124, 77), // Red color for logout button
+                            255, 211, 51, 51), // Red color for logout
                         foregroundColor: Colors.white, // Text color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8), // Rounded corners
+                        ),
                       ),
-                    ),
-                    
+                    )
                   ],
                 ),
-
               ],
             ),
           );

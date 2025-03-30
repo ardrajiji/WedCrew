@@ -89,6 +89,7 @@ Future<void> _deleteOption(dynamic id) async {
     return Scaffold(
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text(
           'Services',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),

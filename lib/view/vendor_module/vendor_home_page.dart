@@ -1,8 +1,5 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
-import 'package:wed_crew/view/user_view_bookings.dart';
 import 'package:wed_crew/view/vendor_module/bookigs_view/page/vendor_booking.dart';
 import 'package:wed_crew/view/vendor_module/portfolio/page/protfoilo_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_profile/page/vendor_profile.dart';
@@ -17,8 +14,6 @@ class VendorHomePages extends StatefulWidget {
 }
 
 class _VendorHomePagesState extends State<VendorHomePages> {
- 
-
   int _currentIndex = 0;
   final PageController _pageController = PageController();
 
@@ -47,89 +42,9 @@ class _VendorHomePagesState extends State<VendorHomePages> {
     return Scaffold(
       appBar: _currentIndex == 0
           ? AppBar(
+             automaticallyImplyLeading: false,
               title: const Text("WEDCREW"),
               backgroundColor: const Color.fromARGB(255, 240, 244, 243),
-            )
-          : null,
-      drawer: _currentIndex == 0
-          ? Drawer(
-              child: ListView(
-                padding: EdgeInsets.zero,
-                children: [
-                  const DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 231, 239, 199),
-                    ),
-                    child: Text(
-                      'Welcome to WEDCREW',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.add),
-                    title: const Text('SignUp'),
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const SignUpPage(),
-                    //     ),
-                    //   );
-                    // },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.visibility),
-                    title: const Text('User home'),
-                    // onTap: () {
-                    //   Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const UserHomePage()),
-                    //   );
-                    // },
-                  ),
-                  ListTile(
-                    leading: const Icon(Icons.charging_station_outlined),
-                    title: const Text('View user side booking '),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>  BookingRequestPage()),
-                      );
-                    },
-                  ),
-                //   ListTile(
-                //     leading: const Icon(Icons.history),
-                //     title: const Text('View Purchase History'),
-                //     onTap: () {
-                     
-                //       Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => const PurchaseHistoryPage()),
-                //       );
-                //     },
-                //   ),
-                  const Divider(),
-                  ListTile(
-                    leading: const Icon(Icons.logout),
-                    title: const Text('Logout'),
-                    onTap: () async {
-                      // await PreferenceValues.userLogout();
-                      // Navigator.pushReplacement(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => const LoginPage()),
-                      // );
-                    },
-                  ),
-                ],
-              ),
             )
           : null,
       body: Stack(
@@ -155,7 +70,6 @@ class _VendorHomePagesState extends State<VendorHomePages> {
               SingleChildScrollView(
                 child: Column(
                   children: [
-                   
                     SizedBox(height: screenHeight * 0.06),
                     Padding(
                       padding:
@@ -187,10 +101,10 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                   ],
                 ),
               ),
-               VendorServicePage(),
-               ViewBookingPage(),
-               ShopPortfolioPage(),
-               VendorProfileScreen(),
+              VendorServicePage(),
+              BookedServicesScreen(),
+              ShopPortfolioPage(),
+              VendorProfileScreen(),
             ],
           ),
         ],
@@ -210,8 +124,8 @@ class _VendorHomePagesState extends State<VendorHomePages> {
               icon: Icon(Icons.account_circle, size: 30), label: ''),
         ],
         type: BottomNavigationBarType.fixed,
-        selectedItemColor:  Colors.black,
-        unselectedItemColor:  Colors.grey,
+        selectedItemColor: Colors.black,
+        unselectedItemColor: Colors.grey,
       ),
     );
   }

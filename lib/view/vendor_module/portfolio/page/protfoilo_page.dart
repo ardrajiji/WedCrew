@@ -64,7 +64,10 @@ class _ShopPortfolioPageState extends State<ShopPortfolioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Shop Portfolio'),
+         backgroundColor: Colors.black,
+        automaticallyImplyLeading: false,
+        title: const Text('Shop Portfolio',style: TextStyle(color: Colors.white),),
+    
       ),
       body: FutureBuilder<PortfolioModel>(
         future: _shopDetailsFuture, // Use the initialized Future

@@ -52,18 +52,6 @@ class _UserLoginPageState extends State<UserLoginPage> {
               ),
             );
           }
-        } else if (responseMessage.status == 'vendor') {
-          if (mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('User Login successful')),
-            );
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const VendorHomePages(),
-              ),
-            );
-          }
         } else {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(

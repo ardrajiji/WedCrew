@@ -9,25 +9,25 @@ UserLoginModel userLoginModelFromJson(String str) => UserLoginModel.fromJson(jso
 String userLoginModelToJson(UserLoginModel data) => json.encode(data.toJson());
 
 class UserLoginModel {
-    String? status;
     String? message;
+    int? userId;
     String? role;
 
     UserLoginModel({
-        this.status,
         this.message,
+        this.userId,
         this.role,
     });
 
     factory UserLoginModel.fromJson(Map<String, dynamic> json) => UserLoginModel(
-        status: json["status"],
         message: json["message"],
+        userId: json["user_id"],
         role: json["role"],
     );
 
     Map<String, dynamic> toJson() => {
-        "status": status,
         "message": message,
+        "user_id": userId,
         "role": role,
     };
 }

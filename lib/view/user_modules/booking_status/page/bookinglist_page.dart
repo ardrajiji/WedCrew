@@ -189,7 +189,7 @@ class BookingDetailsPage extends StatelessWidget {
       case 'cancelled':
         return Colors.orange;
       default:
-        return Colors.grey;
+        return const Color.fromARGB(255, 86, 160, 68);
     }
   }
 }

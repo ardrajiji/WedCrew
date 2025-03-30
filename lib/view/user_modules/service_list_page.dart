@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+
+import 'package:wed_crew/view/user_modules/beautician_list/page/beautician_list.dart';
+import 'package:wed_crew/view/user_modules/decoration_list/page/shop_list.dart';
 import 'package:wed_crew/view/user_modules/photography_list/page/photography_list_page.dart';
 
-import 'package:wed_crew/view/user_modules/decoration_list/page/decoration_page.dart';
-import 'package:wed_crew/view/makeup_page.dart';
 import 'package:wed_crew/view/user_modules/venue_list/page/venue_list.dart';
 
 class ServiceListPage extends StatelessWidget {
@@ -27,7 +28,7 @@ class ServiceListPage extends StatelessWidget {
     {
       'title': 'Makeup',
       'image': 'assets/image/makeup2.jpg',
-      'page': MakeupPage(),
+      'page': BeauticianPage(),
     },
   ];
 

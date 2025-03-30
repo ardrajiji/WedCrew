@@ -86,7 +86,51 @@ class VendorProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20), // Add spacing
-               
+               ElevatedButton.icon(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Logout"),
+                              content: const Text(
+                                  "Are you sure you want to logout?"),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Close dialog
+                                  },
+                                  child: const Text("Cancel"),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); // Close dialog
+                                    // Perform logout action
+                                    // Example: Navigate to login screen
+                                    Navigator.pushReplacementNamed(
+                                        context, '/login');
+                                  },
+                                  child: const Text("Logout",
+                                      style: TextStyle(color: Colors.red)),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                      icon: const Icon(Icons.logout, color: Colors.white),
+                      label: const Text('Logout'),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: const Color.fromARGB(255, 218, 73, 73), // Red color for logout
+                        foregroundColor: Colors.white, // Text color
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24, vertical: 12),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(8), // Rounded corners
+                        ),
+                      ),
+                    )
               ],
             ),
           );
