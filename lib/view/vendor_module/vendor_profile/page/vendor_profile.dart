@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
+import 'package:wed_crew/view/vendor_module/feedback/page/feedback_submit.dart';
+import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 import 'package:wed_crew/view/vendor_module/vendor_profile/service/vendor_profile_service.dart';
 class VendorProfileScreen extends StatelessWidget {
   const VendorProfileScreen({super.key});
@@ -86,51 +89,83 @@ class VendorProfileScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20), // Add spacing
-               ElevatedButton.icon(
+               Row(
+                 children: [
+
+                      ElevatedButton.icon(
                       onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: const Text("Logout"),
-                              content: const Text(
-                                  "Are you sure you want to logout?"),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Close dialog
-                                  },
-                                  child: const Text("Cancel"),
-                                ),
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Close dialog
-                                    // Perform logout action
-                                    // Example: Navigate to login screen
-                                    Navigator.pushReplacementNamed(
-                                        context, '/login');
-                                  },
-                                  child: const Text("Logout",
-                                      style: TextStyle(color: Colors.red)),
-                                ),
-                              ],
-                            );
-                          },
-                        );
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const VendorFeedbackScreen()));
                       },
-                      icon: const Icon(Icons.logout, color: Colors.white),
-                      label: const Text('Logout'),
+                      icon: const Icon(
+                        Icons.feedback,
+                        color: Colors.white,
+                      ),
+                      label: const Text('Feedback'),
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 218, 73, 73), // Red color for logout
+                        backgroundColor: const Color.fromARGB(
+                            255, 40, 124, 77), // Red color for logout button
                         foregroundColor: Colors.white, // Text color
                         padding: const EdgeInsets.symmetric(
                             horizontal: 24, vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(8), // Rounded corners
-                        ),
                       ),
-                    )
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+
+
+                   ElevatedButton.icon(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: const Text("Logout"),
+                                  content: const Text(
+                                      "Are you sure you want to logout?"),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop(); // Close dialog
+                                      },
+                                      child: const Text("Cancel"),
+                                    ),
+                                    TextButton(
+                                      onPressed: () async {
+                                        await PreferenceValues.vendorLogout();
+                                        Navigator.pushReplacement(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const VendorLoginPage()),
+                                        );
+                                      },
+                                      child: const Text("Logout",
+                                          style: TextStyle(color: Colors.red)),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          icon: const Icon(Icons.logout, color: Colors.white),
+                          label: const Text('Logout'),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color.fromARGB(255, 218, 73, 73), // Red color for logout
+                            foregroundColor: Colors.white, // Text color
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 24, vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.circular(8), // Rounded corners
+                            ),
+                          ),
+                        ),
+                 ],
+               )
               ],
             ),
           );

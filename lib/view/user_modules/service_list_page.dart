@@ -38,6 +38,7 @@ class ServiceListPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Our Services"),
         backgroundColor: Color.fromARGB(255, 212, 179, 151),
+        automaticallyImplyLeading: false,
       ),
       backgroundColor: const Color.fromARGB(244, 242, 248, 243),
       body: Padding(

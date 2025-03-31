@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/bookigs_view/model/booking_view_model.dart';
 
 Future<List<ViewBooknigModel>> bookingsDisplay() async {
   try {
+    String vendorId = await PreferenceValues.getVendorId();
     Map<String, dynamic> params = {
-      'vendor_id': 2.toString(),
+      'vendor_id':vendorId,
     };
     final resp = await http.get(
       Uri.parse(UserUrl.viewbookings).replace(queryParameters: params),

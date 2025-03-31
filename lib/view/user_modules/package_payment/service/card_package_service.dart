@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/package_payment/model/card_package_model.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 
 Future<CardPaymentModel> cardPayService({
@@ -14,14 +15,14 @@ Future<CardPaymentModel> cardPayService({
   required String amount,
 }) async {
   try {
-    //String userId = await PreferenceValues.getUserId();
+    String userId = await PreferenceValues.getUserId();
     Map<String, dynamic> param = {
       "booking": booking_id,
       "cardholder_name": name,
       "card_number": card_number,
       "expiry_date": expiry_date,
       "cvv_number": cvv,
-      "user":13.toString(),
+      "user":userId,
       "amount_paid":amount,
        "payment_method" :"card",
     };

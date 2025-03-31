@@ -45,7 +45,7 @@ class _UserRegistrationState extends State<UserRegistration> {
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('${responseMessage}')),
+          SnackBar(content: Text('User registered successfully')),
         );
 
         Navigator.pushReplacement(

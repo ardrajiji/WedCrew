@@ -1,32 +1,28 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
-import 'package:wed_crew/view/user_modules/photography_booking_form/model/service_booking.dart';
 import 'package:wed_crew/view/utils/preference_values.dart';
+import 'package:wed_crew/view/vendor_module/feedback/model/feedback_model.dart';
 
-Future<ServiceBookModel> confirmBookingService({
-  required List service_ids,
-  required String advanced_price,
-  required String time,
-  required String date,
-  required String address,
-  required String vendor,
+Future<VendorFeedbackModel> vendorFeedbackService({
+  required String rating,
+  required String feedback,
+  
 }) async {
   try {
-    String userId = await PreferenceValues.getUserId();
+
+     String vendorId = await PreferenceValues.getVendorId();
     Map<String, dynamic> param = {
-      "user": userId,
-      "service_ids": service_ids, 
-      "advanced_price":advanced_price,
-      "time": time, 
-      "date":date,
-      "address":address,
-      "vendor":vendor,
+      "vendor": vendorId,
+      "rating": rating,
+      "review_text" :feedback,
+      
     };
 
     final resp = await http.post(
-      Uri.parse(UserUrl.Photographybooking),
+      Uri.parse(UserUrl.feedbackvendor), 
       body: jsonEncode(param),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=utf-8',
@@ -34,13 +30,21 @@ Future<ServiceBookModel> confirmBookingService({
     );
 
     if (resp.statusCode == 201) {
+      /**
+       *  final List<dynamic> decoded = jsonDecode(resp.body);
+      final response =
+          decoded.map((item) => ProductModel.fromJson(item)).toList();
+      return response;
+       */
+
       final dynamic decoded = jsonDecode(resp.body);
-      final response = ServiceBookModel.fromJson(decoded);
+      final response = VendorFeedbackModel.fromJson(decoded);
+          
       return response;
     } else {
       final Map<String, dynamic> errorResponse = jsonDecode(resp.body);
       throw Exception(
-        '${errorResponse['message'] ?? 'Unknown error'}',
+        'Failed to login: ${errorResponse['message'] ?? 'Unknown error'}',
       );
     }
   } on SocketException {

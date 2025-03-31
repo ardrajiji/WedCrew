@@ -3,14 +3,17 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/feedback/model/feedback_model.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 Future<FeedbackModel> userFeedbackService({
   required String rating,
   required String feedback,
 }) async {
   try {
+
+    String userId = await PreferenceValues.getUserId();
     Map<String, dynamic> param = {
-      "user": 13.toString(),
+      "user": userId,
       "rating": rating,
       "text" :feedback,
     };

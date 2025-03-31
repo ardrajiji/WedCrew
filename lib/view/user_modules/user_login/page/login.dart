@@ -3,6 +3,7 @@ import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart';
 import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 import 'package:wed_crew/view/user_modules/user_register/page/registration.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/vendor_home_page.dart';
 
 
@@ -39,6 +40,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+        await PreferenceValues.userLogin(userId: responseMessage.userId!.toString());
 
         if (responseMessage.role == 'user') {
           if (mounted) {

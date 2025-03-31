@@ -93,11 +93,11 @@ class _BookedServicesScreenState extends State<BookedServicesScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/image/noResponse.jpg',
+                    'assets/image/empty_list.jpg',
                     width: 300,
                   ),
                   Text(
-                    "Error: ${snapshot.error}",
+                    "Booking is Empty",
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -109,6 +109,7 @@ class _BookedServicesScreenState extends State<BookedServicesScreen> {
             );
           }
 
+         
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text("No booked services found"),

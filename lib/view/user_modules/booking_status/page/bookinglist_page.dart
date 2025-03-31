@@ -12,7 +12,8 @@ class BookingDetailsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Booking Details'),
-        centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 212, 179, 151),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<BookingListModel>>(
         future: servicehistoryList(),
@@ -21,18 +22,40 @@ class BookingDetailsPage extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          if (snapshot.hasError) {
+          // if (snapshot.hasError) {
+          //   return Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Image.asset(
+          //           'assets/image/empty_list.jpg',
+          //           width: screenSize.width * 0.6,
+          //         ),
+          //         SizedBox(height: screenSize.height * 0.02),
+          //         Text(
+          //           "Error: ${snapshot.error}",
+          //           style: TextStyle(
+          //             fontSize: screenSize.width * 0.045,
+          //             fontWeight: FontWeight.bold,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   );
+          // }
+
+             if (snapshot.hasError) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset(
-                    'assets/image/noResponse.jpg',
+                    'assets/image/empty_list.jpg',
                     width: screenSize.width * 0.6,
                   ),
                   SizedBox(height: screenSize.height * 0.02),
                   Text(
-                    "Error: ${snapshot.error}",
+                    "Booking is Empty",
                     style: TextStyle(
                       fontSize: screenSize.width * 0.045,
                       fontWeight: FontWeight.bold,

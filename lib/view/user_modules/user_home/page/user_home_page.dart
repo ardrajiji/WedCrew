@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:wed_crew/view/constants/urls.dart';
@@ -80,12 +82,23 @@ class _UserHomePageState extends State<UserHomePage> {
     children: [
       // Background Image
       Positioned.fill(
-        child: Image.asset(
-          'assets\image\photographer2.jpg', // Replace with your image path
-          fit: BoxFit.cover, // Ensures the image covers the entire screen
+  child: Stack(
+    children: [
+      Image.asset(
+        'assets/image/decor2.jpg', // Replace with your image path
+        fit: BoxFit.cover, // Ensures the image covers the entire screen
+      ),
+      Positioned.fill(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // Adjust blur intensity
+          child: Container(
+            color: Colors.black.withOpacity(0), // Transparent overlay to apply blur
+          ),
         ),
       ),
-
+    ],
+  ),
+),
       // Content
       SingleChildScrollView(
         child: Padding(
@@ -188,7 +201,7 @@ class _UserHomePageState extends State<UserHomePage> {
                         ),
                         child: ClipOval(
                           child: Image.network(
-                            '${UserUrl.baseUrl}/${category.image!}',
+                            '${UserUrl.baseUrl}/${category.image}',
                             loadingBuilder: (context, child, loadingProgress) {
                               if (loadingProgress == null) return child;
                               return const Center(
@@ -206,7 +219,7 @@ class _UserHomePageState extends State<UserHomePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        category.name!,
+                        category.name,
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,

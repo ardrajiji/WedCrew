@@ -111,7 +111,7 @@ void initState() {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => PaymentOpp(),
+                          builder: (context) => PaymentOpp(advance: widget.convenienceFee,),
                         ),
                       );
                     },

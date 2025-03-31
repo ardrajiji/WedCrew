@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/register_separation.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
+import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 
 
-class OnboardingPage1 extends StatelessWidget {
-  const OnboardingPage1({super.key});
+class OnboardingPage2 extends StatelessWidget {
+  const OnboardingPage2({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -176,12 +178,15 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                                 const Color.fromRGBO(194, 154, 119, 1.0),
                             textStyle: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold)),
-                        onPressed: () {
-                          // widget.onSkip?.call();
-                          Navigator.push(
+                       onPressed: () async {
+                          // Disable the intro screen
+                          await PreferenceValues.disableVendorIntroScreen();
+
+                          // Navigate to the LoginPage
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignUpSelectionPage(),
+                              builder: (context) => const SignUpSelectionPage(),
                             ),
                           );
                         },
@@ -192,18 +197,25 @@ class _OnboardingPageState extends State<OnboardingPagePresenter> {
                           foregroundColor: Color.fromRGBO(194, 154, 119, 1.0),
                           textStyle: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold)),
-                      onPressed: () {
+                        onPressed: () async {
                         if (_currentPage == widget.pages.length - 1) {
-                          Navigator.push(
+                          // Disable the intro screen
+                          await PreferenceValues.disableVendorIntroScreen();
+
+                          // Navigate to the UserLoginPage
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SignUpSelectionPage(),
+                              builder: (context) => const SignUpSelectionPage(),
                             ),
                           );
                         } else {
-                          _pageController.animateToPage(_currentPage + 1,
-                              curve: Curves.easeInOutCubic,
-                              duration: const Duration(milliseconds: 250));
+                          // Go to the next page
+                          _pageController.animateToPage(
+                            _currentPage + 1,
+                            curve: Curves.easeInOutCubic,
+                            duration: const Duration(milliseconds: 250),
+                          );
                         }
                       },
                       child: Row(

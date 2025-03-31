@@ -34,6 +34,7 @@ class UserUrl {
   static const String viewbookings ="$vendorbaseUrl/vendor_service_bookings/";
   static const String  confirm="$vendorbaseUrl/booking/confirm/";
   static const String  reject="$vendorbaseUrl/booking/reject/";
+  static const String  feedbackvendor="$vendorbaseUrl/vendor-feedback/";
   
   
   

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/feedback/page/feeback_page.dart';
 import 'package:wed_crew/view/user_modules/profile/model/profile.dart';
 import 'package:wed_crew/view/user_modules/profile/service/profile_service.dart';
+import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 class UserProfile extends StatelessWidget {
   const UserProfile({super.key});
@@ -10,8 +12,9 @@ class UserProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile', style: TextStyle(color: Colors.white)),
-        backgroundColor: Colors.black,
+        title: const Text('Profile', style: TextStyle(color: Colors.black)),
+        backgroundColor:Color.fromARGB(255, 212, 179, 151),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<UserProfileModel>(
         future:
@@ -111,12 +114,14 @@ class UserProfile extends StatelessWidget {
                                   child: const Text("Cancel"),
                                 ),
                                 TextButton(
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); // Close dialog
-                                    // Perform logout action
-                                    // Example: Navigate to login screen
-                                    Navigator.pushReplacementNamed(
-                                        context, '/login');
+                                  onPressed: () async {
+                                    await PreferenceValues.userLogout();
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const UserLoginPage()),
+                                    );
                                   },
                                   child: const Text("Logout",
                                       style: TextStyle(color: Colors.red)),

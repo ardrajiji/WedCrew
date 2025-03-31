@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 
 class PaymentOpp extends StatefulWidget {
-  const PaymentOpp({super.key});
+  final String advance;
+  const PaymentOpp({super.key, required this.advance});
 
   @override
   PaymentOppState createState() => PaymentOppState();
@@ -9,154 +11,162 @@ class PaymentOpp extends StatefulWidget {
 
 class PaymentOppState extends State<PaymentOpp> {
   String? selectedBank;
-  TextEditingController pricecontroller = TextEditingController();
+  TextEditingController priceController = TextEditingController();
+  TextEditingController upiController = TextEditingController();
+  TextEditingController cardNameController = TextEditingController();
+  TextEditingController cardNumberController = TextEditingController();
+  TextEditingController cvvController = TextEditingController();
+  TextEditingController expiryDateController = TextEditingController();
 
   final List<Map<String, String>> banks = [
-    {
-      'name': 'Google Pay',
-      'image': 'assets/icons/google-pay-icon.webp',
-    },
-    {
-      'name': 'Credit/Debit Cards',
-      'image': 'assets/icons/credit_card.jpg',
-    },
-    {
-      'name': 'Paypal',
-      'image': 'assets/icons/paypal.jpg',
-    },
-    {
-      'name': 'Master Card',
-      'image': 'assets/icons/master card.jpg', 
-    },
+    {'name': 'Google Pay', 'image': 'assets/icons/google-pay-icon.webp'},
+    {'name': 'Credit/Debit Cards', 'image': 'assets/icons/credit_card.jpg'},
   ];
 
   @override
   void initState() {
     super.initState();
-    selectedBank = banks.first['name']; // Default selection
+    selectedBank = banks.first['name'];
+    priceController.text = widget.advance;
+  }
+
+  void showSuccessDialog() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Payment Successful"),
+          content: const Text("Your payment has been processed successfully!"),
+          actions: [
+  TextButton(
+    onPressed: () {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (context) => UserHomePage()),
+        (route) => false, // Removes all previous routes
+      );
+    },
+    child: const Text("OK", style: TextStyle(color: Colors.green)),
+  ),
+],
+
+        );
+      },
+    );
+  }
+
+  void validateAndProceed(String method) {
+    if (method == "Google Pay") {
+      if (upiController.text.isEmpty || !upiController.text.contains('@')) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please enter a valid UPI ID.")));
+        return;
+      }
+    } else {
+      if (cardNumberController.text.length != 16 ||
+          cvvController.text.length != 3 ||
+          expiryDateController.text.isEmpty ||
+          cardNameController.text.isEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text("Please enter valid card details.")));
+        return;
+      }
+    }
+    Navigator.pop(context);
+    showSuccessDialog();
+  }
+
+  void showGooglePayBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            color: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("Enter Your UPI ID", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                TextField(
+                  controller: upiController,
+                  decoration: const InputDecoration(labelText: "UPI ID", border: OutlineInputBorder()),
+                ),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () => validateAndProceed("Google Pay"),
+                  style: ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 46, 110, 53)),
+                  child: const Text("Proceed", style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showCardPaymentBottomSheet() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (context) {
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: Container(
+            padding: const EdgeInsets.all(16.0),
+            color: Colors.white,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text("Enter Card Details", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                TextField(controller: cardNameController, decoration: const InputDecoration(labelText: "Cardholder Name", border: OutlineInputBorder())),
+                const SizedBox(height: 10),
+                TextField(controller: cardNumberController, decoration: const InputDecoration(labelText: "Card Number", border: OutlineInputBorder()), keyboardType: TextInputType.number, maxLength: 16),
+                const SizedBox(height: 10),
+                TextField(controller: expiryDateController, decoration: const InputDecoration(labelText: "Expiry Date (MM/YY)", border: OutlineInputBorder())),
+                const SizedBox(height: 10),
+                TextField(controller: cvvController, decoration: const InputDecoration(labelText: "CVV", border: OutlineInputBorder()), keyboardType: TextInputType.number, maxLength: 3),
+                const SizedBox(height: 10),
+                ElevatedButton(
+                  onPressed: () => validateAndProceed("Card"),
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  child: const Text("Proceed", style: TextStyle(color: Colors.white)),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: const Text(
-          "Payment Option",
-          style: TextStyle(fontSize: 18, color: Colors.black),
-        ),
-        centerTitle: true,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-          icon: const Icon(Icons.arrow_back, size: 20, color: Colors.black),
-        ),
-      ),
+      appBar: AppBar(title: const Text("Payment Option", style: TextStyle(color: Colors.white)), backgroundColor: const Color.fromARGB(255, 14, 102, 64)),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextField(
-              controller: pricecontroller,
-              textAlign: TextAlign.center,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(), // Fixed border visibility
-                hintText: '₹0',
-              ),
-              style: const TextStyle(fontSize: 70),
-            ),
+            TextField(controller: priceController, readOnly: true, decoration: const InputDecoration(border: OutlineInputBorder(), hintText: '₹0')),
             const SizedBox(height: 20),
-            Expanded(
-              child: Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      
-                      const Text(
-                        "Choose Your Transaction Method",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey,
-                        ),
-                      ),
-
-
-                      const SizedBox(height: 15),
-                      DropdownButtonFormField<String>(
-                        value: selectedBank,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                        ),
-                        items: banks.map((bank) {
-                          return DropdownMenuItem<String>(
-                            value: bank['name'],
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  bank['image']!,
-                                  width: 30,
-                                  height: 30,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  bank['name']!,
-                                  style: const TextStyle(fontSize: 14),
-                                ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedBank = newValue;
-                          });
-                        },
-                      ),
-
-
-                      const SizedBox(height: 20),
-                      SizedBox(
-                        width: double.infinity,
-                        height: 50,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                  content: Text(
-                                      "Payment initiated for ${pricecontroller.text}")),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            backgroundColor: Colors.red,
-                          ),
-                          child: const Text(
-                            'Confirm Payment',
-                            style: TextStyle(fontSize: 16, color: Colors.white),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+            DropdownButtonFormField<String>(
+              value: selectedBank,
+              decoration: const InputDecoration(border: OutlineInputBorder()),
+              items: banks.map((bank) {
+                return DropdownMenuItem(value: bank['name'], child: Text(bank['name']!));
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() => selectedBank = newValue);
+                if (newValue == "Google Pay") {
+                  showGooglePayBottomSheet();
+                } else {
+                  showCardPaymentBottomSheet();
+                }
+              },
             ),
           ],
         ),

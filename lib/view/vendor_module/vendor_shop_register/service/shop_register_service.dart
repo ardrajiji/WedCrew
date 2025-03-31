@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/vendor_shop_register/model/shop_register_model.dart';
 
 Future<VendorShopRegister> shopRegistrationService({
@@ -18,14 +19,14 @@ Future<VendorShopRegister> shopRegistrationService({
     var request = http.MultipartRequest("POST", Uri.parse(UserUrl.vendor_shop_register));
 
     // Get service centre ID
-   // int serviceCentreId = await LocalStorage.getServiceCentreId();
+   String tempVendorId = await PreferenceValues.getTempVendorId();
     // Add text fields
     request.fields['name'] = name;
     request.fields['address'] = address;
     request.fields['email'] = email;
     request.fields['mobile_no'] = phone;
     request.fields['year_in_business'] = yearInBusiness;
-    request.fields['vendor'] = 11.toString();
+    request.fields['vendor'] = tempVendorId;
 
     // Add the image file
     var imageStream = http.ByteStream(shopImage.openRead());

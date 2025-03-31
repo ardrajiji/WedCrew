@@ -3,6 +3,7 @@ import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart';
 
 import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/vendor_home_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/service/vendor_login_service.dart';
 import 'package:wed_crew/view/vendor_module/vendor_register/page/vendor_signup.dart';
@@ -39,6 +40,8 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
           email: _emailController.text.trim(),
           password: _passwordController.text.trim(),
         );
+
+        await PreferenceValues.vendorLogin(vendorId: responseMessage.vendorId!.toString());
 
         if (responseMessage.status == 'approved') {
         

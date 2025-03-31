@@ -3,15 +3,16 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/profile/model/profile.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 Future<UserProfileModel> userProfileService() async {
   try {
     
-    //String userId = await PreferenceValues.getUserId();
+    String userId = await PreferenceValues.getUserId();
 
     Map<String, dynamic> params = {
      // 'id': userId.toString(),
-     'user_id': 13.toString(),
+     'user_id':userId,
     };
 
     final resp = await http.get(

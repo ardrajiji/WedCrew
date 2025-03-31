@@ -2,14 +2,16 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/portfolio/model/shop_add_model.dart';
 
 Future<ShopAddModel> addImages({
   required List<File> productImages,
 }) async {
   try {
+    String vendorId = await PreferenceValues.getVendorId();
     var request = http.MultipartRequest("PUT", Uri.parse(UserUrl.shopImages));
-    request.fields['vendor_id'] = 2.toString();
+    request.fields['vendor_id'] = vendorId;
 print("API URL: ${UserUrl.shopImages}");
 
     for (var image in productImages) {

@@ -1,21 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/introduction_screen.dart';
+import 'package:wed_crew/view/register_separation.dart';
+import 'package:wed_crew/view/user_introduction_screen.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
+import 'package:wed_crew/view/vendor_introduction_screen.dart';
 import 'package:wed_crew/view/vendor_module/vendor_profile/page/vendor_profile.dart';
 
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  bool isUserFirstLaunch = await PreferenceValues.getUserIntroScreenStatus();
+  bool isVendorFirstLaunch = await PreferenceValues.getVendorIntroScreenStatus();
+  bool isUserLoggedIn = await PreferenceValues.getUserLoginStatus();
+  bool isVendorLoggedIn = await PreferenceValues.getVendorLoginStatus();
+
+   Widget initialScreen;
+   if (isUserFirstLaunch) {
+    initialScreen = const OnboardingPage1();
+  } else {
+    if (isVendorFirstLaunch) {
+      initialScreen = const OnboardingPage2();
+    } else {
+      initialScreen = const SignUpSelectionPage();
+    }
+  }
+
+// if (isUserFirstLaunch) {
+//   initialScreen = const OnboardingPage1();
+// } else {
+//   initialScreen = const SignUpSelectionPage();
+// }
+
+// if (isEmployeeFirstLaunch) {
+//   initialScreen = const OnboardingPage1();
+// } else {
+//   initialScreen = const SignUpSelectionPage();
+// }
+
+// if (isUserLoggedIn) {
+//   initialScreen = const UserHomeScreen();
+// } else {
+//   initialScreen = const UserLogin();
+// }
+
+// if (isEmployeeLoggedIn) {
+//   initialScreen = const EmployeeHomePage();
+// } else {
+//   initialScreen = const EmployeeLoginPage();
+// }
+
+  runApp(MyApp(
+    initialScreen: initialScreen,
+  ));
 }
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
+  final Widget initialScreen;
+  const MyApp({
+    super.key,
+    required this.initialScreen,
+  });
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -57,7 +101,7 @@ class _MyAppState extends State<MyApp> {
         ),
         backgroundColor: Colors.white, // Background color of the splash screen
         splashTransition: SplashTransition.scaleTransition, // Use scale transition
-        nextScreen: const OnboardingPage1(), // Next screen after splash
+        nextScreen:initialScreen, // Next screen after splash
         duration: 3000, // Duration of the splash screen
         splashIconSize: 250, // Increase the size of the splash icon container
         centered: true, // Center the splash widget

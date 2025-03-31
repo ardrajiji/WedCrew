@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/package_payment/model/upi_package_model.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 
 Future<UpiPaymentModel> gpayService({
@@ -11,11 +12,11 @@ Future<UpiPaymentModel> gpayService({
   required String amount,
 }) async {
   try {
-    //String userId = await PreferenceValues.getUserId();
+    String userId = await PreferenceValues.getUserId();
     Map<String, dynamic> param = {
       "upi_id": upi_id,
       "booking": booking_id,
-      "user":13.toString(),
+      "user":userId,
       "amount_paid":amount,
       "payment_method":"googlepay",
     };

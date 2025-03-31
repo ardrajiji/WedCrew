@@ -2,12 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/service_display/model/service_display_model.dart';
 
 Future<List<VendorserviceDisplayModel>> serviceCenterDisplay() async {
   try {
+    String vendorId = await PreferenceValues.getVendorId();
     Map<String, dynamic> params = {
-      'vendor_id': 9.toString(),
+      'vendor_id': vendorId,
     };
     final resp = await http.get(
       Uri.parse(UserUrl.vendor_service_view).replace(queryParameters: params),

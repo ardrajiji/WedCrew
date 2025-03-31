@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 import 'dart:io';
 
@@ -38,6 +39,8 @@ class _ShopRegistrationPageState extends State<ShopRegistrationPage> {
           shopImage: _shopImage ??File('assets/image/image.png'),
           
         );
+
+         await PreferenceValues.tempVendorLogout();
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registered successfully')),

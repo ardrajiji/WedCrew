@@ -3,11 +3,13 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/booking_status/model/booking_list_model.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 Future<List<BookingListModel>> servicehistoryList() async {
   try {
+    String userId = await PreferenceValues.getUserId();
     Map<String, dynamic> params = {
-      'user_id': 13.toString(),
+      'user_id': userId,
     };
     final resp = await http.get(
       Uri.parse(UserUrl.bookingHistory).replace(queryParameters: params),

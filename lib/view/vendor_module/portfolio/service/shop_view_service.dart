@@ -2,17 +2,18 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/portfolio/model/shop_view_model.dart';
 
 
 Future<PortfolioModel> shopViewService() async {
   try {
     //final user_id =int.parse("2");
-   // String userId = await PreferenceValues.getUserId();
+   String vendorId = await PreferenceValues.getVendorId();
 
     Map<String, dynamic> params = {
       //'id': userId.toString(),
-      'vendor_id' : 2.toString(),
+      'vendor_id' : vendorId,
     };
 
     final resp = await http.get(

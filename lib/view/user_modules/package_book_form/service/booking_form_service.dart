@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:wed_crew/view/constants/urls.dart';
 import 'package:wed_crew/view/user_modules/package_book_form/model/booikng_from_model.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
 
 Future<BookingFormModel> userbookService({
   required String name,
@@ -14,6 +15,7 @@ Future<BookingFormModel> userbookService({
   required String package_id,
 }) async {
   try {
+    String userId = await PreferenceValues.getUserId();
     Map<String, dynamic> param = {
       "name": name,
       "email": email,
@@ -22,7 +24,7 @@ Future<BookingFormModel> userbookService({
       "number_of_participants": number_of_participants,
       "mobile_number": mobile_number,
       "event_package": package_id,
-      "user": '13',
+      "user": userId,
     };
 
     final response = await http.post(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
+import 'package:wed_crew/view/utils/preference_values.dart';
+import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
 import 'package:wed_crew/view/vendor_module/vendor_register/service/signup_service.dart';
 import 'package:wed_crew/view/vendor_module/vendor_shop_register/page/register.dart';
 
@@ -41,6 +43,8 @@ class _VendorRegistrationState extends State<VendorRegistration> {
           password: _passwordController.text.trim(),
           category: _selectedCategory ?? '',
         );
+
+        await PreferenceValues.tempVendorLogin(tempVendorId: responseMessage.vendorId!.toString());
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Registered successfully')),
