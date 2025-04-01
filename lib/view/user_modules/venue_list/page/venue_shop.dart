@@ -50,11 +50,11 @@ class _VenueVendorPageState extends State<VenueVendorPage> {
                         itemBuilder: (context, index) {
                           return GestureDetector(
                             onTap: () => _showFullScreenImage(
-                                context, '${UserUrl.baseUrl}/${workImages[index]}'),
+                                context, '${UserUrl.baseUrl}/${workImages[index].image}'),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Image.network(
-                                '${UserUrl.baseUrl}/${workImages[index]}',
+                                '${UserUrl.baseUrl}/${workImages[index].image}',
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>

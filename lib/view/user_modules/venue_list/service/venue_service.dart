@@ -7,7 +7,7 @@ import 'package:wed_crew/view/user_modules/venue_list/model/venue_model.dart';
 
 Future<List<VenueModel>> venueService() async {
   try {
-    Map<String, dynamic> params = {
+    Map<String, String> params = {
     };
     final resp = await http.get(
       Uri.parse(UserUrl.venue)

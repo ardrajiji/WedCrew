@@ -17,7 +17,7 @@ Future<VendorFeedbackModel> vendorFeedbackService({
     Map<String, dynamic> param = {
       "vendor": vendorId,
       "rating": rating,
-      "review_text" :feedback,
+      "text" :feedback,
       
     };
 
@@ -29,7 +29,7 @@ Future<VendorFeedbackModel> vendorFeedbackService({
       },
     );
 
-    if (resp.statusCode == 201) {
+    if (resp.statusCode == 200) {
       /**
        *  final List<dynamic> decoded = jsonDecode(resp.body);
       final response =

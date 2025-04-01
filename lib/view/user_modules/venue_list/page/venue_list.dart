@@ -33,7 +33,7 @@ class _VenueListPageState extends State<VenueListPage> {
     setState(() {
       _filteredStudios = _allStudios
           .where((studio) =>
-              (studio.name?.toLowerCase().contains(query.toLowerCase()) ?? false))
+              (studio.name.toLowerCase().contains(query.toLowerCase()) ?? false))
           .toList();
     });
   }
@@ -106,7 +106,7 @@ class _VenueListPageState extends State<VenueListPage> {
                     final studio = _filteredStudios[index];
 
                     // Handle missing shop image
-                    String shopImageUrl = studio.shopImage?.isNotEmpty == true
+                    String shopImageUrl = studio.shopImage.isNotEmpty == true
                         ? '${UserUrl.baseUrl}/${studio.shopImage}'
                         : 'assets/image/homeVenue.webp';
 
@@ -142,7 +142,7 @@ class _VenueListPageState extends State<VenueListPage> {
                                   height: 180,
                                   errorBuilder: (context, error, stackTrace) =>
                                       Image.asset(
-                                    'assets/image/Homephotographer.jpg', // Default image
+                                    'assets/image/homeVenue.webp', // Default image
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 180,

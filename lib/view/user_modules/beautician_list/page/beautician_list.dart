@@ -143,7 +143,7 @@ class _BeauticianPageState extends State<BeauticianPage> {
                                   height: 180,
                                   errorBuilder: (context, error, stackTrace) =>
                                       Image.asset(
-                                    'assets/image/Homephotographer.jpg', // Path to your default image
+                                    'assets/image/homemakeup.jpg', // Path to your default image
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 180,

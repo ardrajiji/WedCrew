@@ -106,7 +106,7 @@ class _DecorationPageState extends State<DecorationPage> {
                   itemBuilder: (context, index) {
                     final studio = _filteredStudios[index];
                     final firstImage = studio.workImages.isNotEmpty == true
-                        ? studio.workImages[0].image
+                        ? studio.workImages[0]
                         : null;
 
                     return Padding(
@@ -141,7 +141,7 @@ class _DecorationPageState extends State<DecorationPage> {
                                   height: 180,
                                   errorBuilder: (context, error, stackTrace) =>
                                       Image.asset(
-                                    'assets/image/Homephotographer.jpg', // Path to your default image
+                                    'assets/image/homeDecor.jpg', // Path to your default image
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                     height: 180,

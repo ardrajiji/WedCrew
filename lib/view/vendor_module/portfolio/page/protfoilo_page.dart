@@ -12,16 +12,23 @@ class ShopPortfolioPage extends StatefulWidget {
   @override
   _ShopPortfolioPageState createState() => _ShopPortfolioPageState();
 }
+
 class _ShopPortfolioPageState extends State<ShopPortfolioPage> {
   late Future<PortfolioModel> _shopDetailsFuture;
   final List<File> _uploadedImages = [];
   final ImagePicker _picker = ImagePicker();
+  String? _shopId; // Make it nullable since we don't have it initially
 
   @override
   void initState() {
     super.initState();
-    // Initialize the Future in initState to avoid late initialization error
-    _shopDetailsFuture = shopViewService();
+    _shopDetailsFuture = shopViewService().then((shopDetails) {
+      // Set the shopId when we get the data
+      setState(() {
+        _shopId = shopDetails.id?.toString();
+      });
+      return shopDetails;
+    });
   }
 
   Future<void> _pickImage() async {
@@ -32,15 +39,38 @@ class _ShopPortfolioPageState extends State<ShopPortfolioPage> {
       return;
     }
 
+    // Check if we have the shopId
+    if (_shopId == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Work images not loaded yet!')),
+      );
+      return;
+    }
+
     try {
-      final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-      if (pickedFile != null) {
+      final pickedFiles = await _picker.pickMultiImage();
+
+      if (pickedFiles.isEmpty) {
+        return; // No images selected
+      }
+
+      // Limit the number of images to be added
+      final imagesToUpload =
+          pickedFiles.take(4 - _uploadedImages.length).toList();
+
+      for (var pickedFile in imagesToUpload) {
         final imageFile = File(pickedFile.path);
+
         setState(() {
           _uploadedImages.add(imageFile);
         });
 
-        final response = await addImages(productImages: [imageFile]);
+        
+      }
+      final response = await addImages(
+          productImages: _uploadedImages,
+          shopId: _shopId!,
+        );
 
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -48,11 +78,13 @@ class _ShopPortfolioPageState extends State<ShopPortfolioPage> {
                   Text(response.message ?? 'Image uploaded successfully!')),
         );
 
-        // Refresh the shop details after uploading the image
-        setState(() {
-          _shopDetailsFuture = shopViewService();
+      // Refresh the shop details after uploading images
+      setState(() {
+        _shopDetailsFuture = shopViewService().then((shopDetails) {
+          _shopId = shopDetails.id?.toString();
+          return shopDetails;
         });
-      }
+      });
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Failed to upload image: $e')),
@@ -64,13 +96,13 @@ class _ShopPortfolioPageState extends State<ShopPortfolioPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-         backgroundColor: Colors.black,
+        backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
-        title: const Text('Shop Portfolio',style: TextStyle(color: Colors.white),),
-    
+        title:
+            const Text('Shop Portfolio', style: TextStyle(color: Colors.white)),
       ),
       body: FutureBuilder<PortfolioModel>(
-        future: _shopDetailsFuture, // Use the initialized Future
+        future: _shopDetailsFuture,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());

@@ -44,6 +44,9 @@ class _DecorVendorPageState extends State<DecorVendorPage> {
                         itemCount: workImages.length,
                         onPageChanged: (index) {
                           setState(() {
+
+
+                            
                             _currentIndex = index;
                           });
                         },

@@ -54,7 +54,7 @@ class _BeauticianVendorPageState extends State<BeauticianVendorPage> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(12),
                               child: Image.network(
-                                '${UserUrl.baseUrl}/${workImages[index].image}',
+                               '${UserUrl.baseUrl}/${workImages[index].image}',
                                 width: double.infinity,
                                 fit: BoxFit.cover,
                                 errorBuilder: (context, error, stackTrace) =>

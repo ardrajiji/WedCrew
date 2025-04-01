@@ -32,7 +32,7 @@ Future<VendorShopRegister> shopRegistrationService({
     var imageStream = http.ByteStream(shopImage.openRead());
     var imageLength = await shopImage.length();
     var multiPartFile = http.MultipartFile(
-      'image',
+      'shop_image',
       imageStream,
       imageLength,
       filename: shopImage.path.split("/").last,
