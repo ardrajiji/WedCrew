@@ -59,21 +59,59 @@ class _UserHomePageState extends State<UserHomePage> {
           
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        backgroundColor: Colors.white,
-        onTap: _onBottomNavTapped,
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.search, size: 30), label: 'Services'),
-          BottomNavigationBarItem(icon: Icon(Icons.refresh, size: 30), label: 'Bookings'),
-          BottomNavigationBarItem(icon: Icon(Icons.account_circle, size: 30), label: 'Profile'),
-        ],
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: const Color.fromRGBO(34, 125, 69, 1),
-        unselectedItemColor: Colors.grey,
-        
+      bottomNavigationBar: Container(
+  decoration: BoxDecoration(
+    color: Colors.white,
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black12,
+        blurRadius: 10,
+        spreadRadius: 2,
       ),
+    ],
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ),
+  ),
+  child: ClipRRect(
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(20),
+      topRight: Radius.circular(20),
+    ),
+    child: BottomNavigationBar(
+      currentIndex: _currentIndex,
+      onTap: _onBottomNavTapped,
+      items: const [
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home, size: 30),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.search, size: 30),
+          label: 'Services',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.refresh, size: 30),
+          label: 'Bookings',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.account_circle, size: 30),
+          label: 'Profile',
+        ),
+      ],
+      type: BottomNavigationBarType.fixed,
+      selectedItemColor: const Color.fromRGBO(34, 125, 69, 1),
+      unselectedItemColor: Colors.grey,
+      elevation: 10, // Adds a smooth elevation effect
+      showUnselectedLabels: true,
+      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+      unselectedLabelStyle: const TextStyle(fontSize: 12),
+      backgroundColor: const Color.fromARGB(255, 215, 251, 216),
+    ),
+  ),
+),
+
     );
   }
 
@@ -85,7 +123,7 @@ class _UserHomePageState extends State<UserHomePage> {
   child: Stack(
     children: [
       Image.asset(
-        'assets/image/decor2.jpg', // Replace with your image path
+        'assets/image/img3.png', // Replace with your image path
         fit: BoxFit.cover, // Ensures the image covers the entire screen
       ),
       Positioned.fill(
@@ -240,7 +278,7 @@ class _UserHomePageState extends State<UserHomePage> {
   Widget _buildCarousel() {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 300,
+        height: 400,
         autoPlay: true,
         enlargeCenterPage: true,
         autoPlayCurve: Curves.easeInOut,

@@ -93,7 +93,7 @@ class MyApp extends StatelessWidget {
       AnimatedSplashScreen(
         splash: Center(
           child: Image.asset(
-            'assets/icons/wedcrewLogo.png',
+            'assets/image/logo.png',
             height: 200, // Set the height
             width: 200, // Set the width
             fit: BoxFit.contain, // Ensure the image fits within the container without cropping

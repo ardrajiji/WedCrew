@@ -3,6 +3,8 @@ import 'package:wed_crew/view/vendor_module/bookigs_view/model/booking_view_mode
 import 'package:wed_crew/view/vendor_module/bookigs_view/service/booking_view_service.dart';
 import 'package:wed_crew/view/vendor_module/bookigs_view/service/confirm_service.dart';
 import 'package:wed_crew/view/vendor_module/bookigs_view/service/reject_service.dart';
+import 'package:wed_crew/view/vendor_module/confirm_booking_view/page/confirm_book_page.dart';
+
 
 class BookedServicesScreen extends StatefulWidget {
   const BookedServicesScreen({super.key});
@@ -76,7 +78,22 @@ class _BookedServicesScreenState extends State<BookedServicesScreen> {
       appBar: AppBar(
         backgroundColor: Colors.black,
         automaticallyImplyLeading: false,
-        title: const Text('Booked Services',style: TextStyle(color: Colors.white),),
+        title: const Text(
+          'Booked Services',
+          style: TextStyle(color: Colors.white),
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.access_alarm, color: Colors.white,size: 30,),
+            onPressed: () {
+              // Navigate to the booking screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ConfirmedBookingsPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<ViewBooknigModel>>(
         future: bookingsDisplay(),
@@ -109,7 +126,6 @@ class _BookedServicesScreenState extends State<BookedServicesScreen> {
             );
           }
 
-         
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
             return const Center(
               child: Text("No booked services found"),
