@@ -20,8 +20,9 @@ class _VendorHomePagesState extends State<VendorHomePages> {
   // Sample images for the carousel - replace with your actual images
   final List<String> carouselImages = [
     'assets/image/decor2.jpg',
-    'assets/image/decor2.jpg',
-    'assets/image/decor2.jpg',
+    'assets/image/decoration2.jpg',
+    'assets/image/photography.jpg',
+    'assets/image/venue.jpg',
   ];
 
   void _onPageChanged(int index) {
@@ -163,7 +164,7 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                             ),
                           ],
                         ),
-                        SizedBox(height: screenHeight * 0.02),
+                        SizedBox(height: screenHeight * 0.06),
                         Center(
                           child: Container(
                             padding: EdgeInsets.all(16),
@@ -180,10 +181,10 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                               ],
                             ),
                             child: Text(
-                              "Connecting vendors, creating experiences!",
+                              "Connecting vendors..\n creating experiences!",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                                 color:Colors.black, // Text color
                                 letterSpacing: 1.2,

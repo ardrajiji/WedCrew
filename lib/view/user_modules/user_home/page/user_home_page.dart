@@ -19,9 +19,15 @@ class UserHomePage extends StatefulWidget {
 
 class _UserHomePageState extends State<UserHomePage> {
   final List<Map<String, dynamic>> packages = [
-    {'image': 'assets/image/img1.png', },
-    {'image': 'assets/image/img3.png',},
-    {'image': 'assets/image/photographer2.jpg',},
+    {
+      'image': 'assets/image/img1.png',
+    },
+    {
+      'image': 'assets/image/img3.png',
+    },
+    {
+      'image': 'assets/image/photographer2.jpg',
+    },
   ];
 
   int _currentIndex = 0;
@@ -55,125 +61,126 @@ class _UserHomePageState extends State<UserHomePage> {
           _buildHomePage(),
           ServiceListPage(),
           BookingDetailsPage(),
-           UserProfile(),
-          
+          UserProfile(),
         ],
       ),
       bottomNavigationBar: Container(
-  decoration: BoxDecoration(
-    color: Colors.white,
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black12,
-        blurRadius: 10,
-        spreadRadius: 2,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black12,
+              blurRadius: 10,
+              spreadRadius: 2,
+            ),
+          ],
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+          child: BottomNavigationBar(
+            currentIndex: _currentIndex,
+            onTap: _onBottomNavTapped,
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.home, size: 30),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search, size: 30),
+                label: 'Services',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.refresh, size: 30),
+                label: 'Bookings',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.account_circle, size: 30),
+                label: 'Profile',
+              ),
+            ],
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: const Color.fromRGBO(34, 125, 69, 1),
+            unselectedItemColor: Color.fromARGB(255, 122, 120, 119),
+            elevation: 10, // Adds a smooth elevation effect
+            showUnselectedLabels: true,
+            selectedLabelStyle:
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            unselectedLabelStyle: const TextStyle(fontSize: 12,color: Colors.black),
+            backgroundColor: const Color.fromARGB(255, 235, 249, 235),
+            
+          ),
+        ),
       ),
-    ],
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(20),
-      topRight: Radius.circular(20),
-    ),
-  ),
-  child: ClipRRect(
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(20),
-      topRight: Radius.circular(20),
-    ),
-    child: BottomNavigationBar(
-      currentIndex: _currentIndex,
-      onTap: _onBottomNavTapped,
-      items: const [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home, size: 30),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.search, size: 30),
-          label: 'Services',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.refresh, size: 30),
-          label: 'Bookings',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.account_circle, size: 30),
-          label: 'Profile',
-        ),
-      ],
-      type: BottomNavigationBarType.fixed,
-      selectedItemColor: const Color.fromRGBO(34, 125, 69, 1),
-      unselectedItemColor: Colors.grey,
-      elevation: 10, // Adds a smooth elevation effect
-      showUnselectedLabels: true,
-      selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-      unselectedLabelStyle: const TextStyle(fontSize: 12),
-      backgroundColor: const Color.fromARGB(255, 215, 251, 216),
-    ),
-  ),
-),
-
     );
   }
 
   Widget _buildHomePage() {
-  return Stack(
-    children: [
-      // Background Image
-      Positioned.fill(
-  child: Stack(
-    children: [
-      Image.asset(
-        'assets/image/img3.png', // Replace with your image path
-        fit: BoxFit.cover, // Ensures the image covers the entire screen
-      ),
-      Positioned.fill(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0), // Adjust blur intensity
-          child: Container(
-            color: Colors.black.withOpacity(0), // Transparent overlay to apply blur
-          ),
-        ),
-      ),
-    ],
-  ),
-),
-      // Content
-      SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+    return Stack(
+      children: [
+        // Background Image
+        Positioned.fill(
+          child: Stack(
             children: [
-              const SizedBox(height: 50),
-              const Text(
-                "Welcome to WedCrew",
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white, // Ensures text is visible on the background
+              // Image.asset(
+              //   'assets/image/img3.png', // Replace with your image path
+              //   fit: BoxFit
+              //       .fitHeight, // Ensures the image covers the entire screen
+              // ),
+              Positioned.fill(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                      sigmaX: 5.0, sigmaY: 5.0), // Adjust blur intensity
+                  child: Container(
+                    color: Colors.black12, // Transparent overlay to apply blur
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
-              _buildCarousel(),
-              const SizedBox(height: 40),
-              const Text(
-                'Select Your Wedding Package',
-                style: TextStyle(
-                  fontSize: 19,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white, // Adjust for visibility
-                ),
-              ),
-              const SizedBox(height: 20),
-              _buildPackageSelection(),
             ],
           ),
         ),
-      ),
-    ],
-  );
-}
-
+        // Content
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 50),
+                const Text(
+                  "Welcome to WedCrew",
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 11, 109, 52), // Ensures text is visible on the background
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildCarousel(),
+                const SizedBox(height: 40),
+                const Text(
+                  'Select Your Wedding Package',
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                    color: Color.fromARGB(255, 31, 114, 8), // Adjust for visibility
+                  ),
+                ),
+                const SizedBox(height: 20),
+                _buildPackageSelection(),
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
   Widget _buildPackageSelection() {
     return FutureBuilder<List<HomePackageModel>>(
@@ -220,12 +227,12 @@ class _UserHomePageState extends State<UserHomePage> {
               return GestureDetector(
                 onTap: () {
                   Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    PackageDetailsPage(package_id: category.id.toString() ?? "0"),
-                              ),
-                            );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PackageDetailsPage(
+                          package_id: category.id.toString() ?? "0"),
+                    ),
+                  );
                 },
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -246,7 +253,8 @@ class _UserHomePageState extends State<UserHomePage> {
                                 child: CircularProgressIndicator(),
                               );
                             },
-                            errorBuilder: (context, error, stackTrace) => const Icon(
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
                               Icons.error,
                               size: 40,
                               color: Colors.red,
@@ -257,11 +265,11 @@ class _UserHomePageState extends State<UserHomePage> {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        category.name,
+                        category.name.toUpperCase(),
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 78, 2, 91),
+                          color: Color.fromARGB(255, 4, 96, 12),
                         ),
                       ),
                     ],
@@ -293,52 +301,4 @@ class _UserHomePageState extends State<UserHomePage> {
       }).toList(),
     );
   }
-
-  // Widget _buildServiceList() {
-  //   final services = [
-  //     {'title': 'Photography', 'image': 'assets/image/Homephotographer.jpg', 'page': PhotographyPage()},
-  //     {'title': 'Venue', 'image': 'assets/image/homeVenue.webp', 'page': VenuePage()},
-  //     {'title': 'Decoration', 'image': 'assets/image/homeDecor.jpg', 'page': DecorationPage()},
-  //     {'title': 'Makeup', 'image': 'assets/image/homemakeup.jpg', 'page': MakeupPage()},
-  //   ];
-
-  //   return SizedBox(
-  //     height: 140,
-  //     child: ListView.builder(
-  //       scrollDirection: Axis.horizontal,
-  //       itemCount: services.length,
-  //       itemBuilder: (context, index) {
-  //         return GestureDetector(
-  //           onTap: () {
-  //             Navigator.push(
-  //               context,
-  //               MaterialPageRoute(builder: (context) => services[index]['page'] as Widget),
-  //             );
-  //           },
-  //           child: Container(
-  //             width: 100,
-  //             margin: const EdgeInsets.symmetric(horizontal: 8),
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(12),
-  //               color: const Color.fromRGBO(246, 216, 190, 1),
-  //             ),
-  //             child: Column(
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: [
-  //                 ClipRRect(
-  //                   borderRadius: BorderRadius.circular(8),
-  //                   child: Image.asset(services[index]['image'] as String,
-  //                       width: 80, height: 80, fit: BoxFit.cover),
-  //                 ),
-  //                 const SizedBox(height: 10),
-  //                 Text(services[index]['title'] as String,
-  //                     style: const TextStyle(color: Color.fromRGBO(34, 125, 69, 1), fontSize: 16, fontWeight: FontWeight.bold)),
-  //               ],
-  //             ),
-  //           ),
-  //         );
-  //       },
-  //     ),
-  //   );
-  // }
 }
