@@ -51,7 +51,7 @@ class _VendorHomePagesState extends State<VendorHomePages> {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color.fromRGBO(250, 250, 251, 0.996),
+            Color.fromRGBO(236, 240, 240, 0.996),
             Color.fromARGB(255, 253, 255, 255),
           ],
           begin: Alignment.topLeft,
@@ -59,12 +59,15 @@ class _VendorHomePagesState extends State<VendorHomePages> {
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         appBar: _currentIndex == 0
             ? AppBar(
                 automaticallyImplyLeading: false,
-                title: const Text("WEDCREW"),
-                backgroundColor: const Color.fromARGB(255, 240, 244, 243),
+                title: const Text(
+                  "WEDCREW",
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: const Color.fromARGB(255, 12, 12, 12),
               )
             : null,
         body: PageView(
@@ -122,7 +125,7 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                                 );
                               }).toList(),
                               options: CarouselOptions(
-                                height: screenHeight * 0.3,
+                                height: screenHeight * 0.4,
                                 autoPlay: true,
                                 enlargeCenterPage: true,
                                 aspectRatio: 16 / 9,
@@ -172,13 +175,13 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                               color: Colors.white, // Background color
                               borderRadius:
                                   BorderRadius.circular(12), // Rounded corners
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black26,
-                                  blurRadius: 8,
-                                  offset: Offset(2, 4),
-                                ),
-                              ],
+                              // boxShadow: [
+                              //   BoxShadow(
+                              //     color: Colors.black26,
+                              //     blurRadius: 8,
+                              //     offset: Offset(2, 4),
+                              //   ),
+                              // ],
                             ),
                             child: Text(
                               "Connecting vendors..\n creating experiences!",
@@ -186,7 +189,7 @@ class _VendorHomePagesState extends State<VendorHomePages> {
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
-                                color:Colors.black, // Text color
+                                color: Colors.black, // Text color
                                 letterSpacing: 1.2,
                               ),
                             ),

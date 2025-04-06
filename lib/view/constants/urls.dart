@@ -21,6 +21,7 @@ class UserUrl {
   static const String venue ="$userbaseUrl/venue-coordinator/";
   static const String beautician ="$userbaseUrl/beautician/";
   static const String decor ="$userbaseUrl/decor-coordinator/";
+  static const String package_booking_view= "$userbaseUrl/user_package_bookings/";
 
 
   static const String vendor_register ="$vendorbaseUrl/vendors/";

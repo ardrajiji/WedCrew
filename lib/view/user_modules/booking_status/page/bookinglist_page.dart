@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/booking_status/service/booking_list_service.dart';
 import 'package:wed_crew/view/user_modules/booking_status/model/booking_list_model.dart';
+import 'package:wed_crew/view/user_modules/package_booking_view/page/package_view.dart';
 
 class BookingDetailsPage extends StatelessWidget {
   const BookingDetailsPage({super.key});
@@ -14,6 +15,18 @@ class BookingDetailsPage extends StatelessWidget {
         title: const Text('Booking Details'),
         backgroundColor: Color.fromARGB(255, 212, 179, 151),
         automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.access_alarm, color: Color.fromARGB(255, 37, 121, 40),size: 30,),
+            onPressed: () {
+              // Navigate to the booking screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MarriageEventsPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<BookingListModel>>(
         future: servicehistoryList(),

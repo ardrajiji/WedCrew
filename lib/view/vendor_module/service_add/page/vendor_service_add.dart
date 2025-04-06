@@ -46,7 +46,7 @@ class _AddServicePageState extends State<AddServicePage> {
           service_name: _serviceNameController.text.trim(),
           details: _detailsController.text.trim(),
           amount: _amountController.text.trim(),
-          image: _selectedImage ??File('assets/image/image.png'),
+          image: _selectedImage ?? File('assets/image/image.png'),
         );
 
         ScaffoldMessenger.of(context).showSnackBar(
@@ -75,6 +75,9 @@ class _AddServicePageState extends State<AddServicePage> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.black,
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

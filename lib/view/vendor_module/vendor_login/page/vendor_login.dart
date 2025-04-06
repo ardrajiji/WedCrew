@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:wed_crew/view/register_separation.dart';
-import 'package:wed_crew/view/user_modules/user_login/service/login_service.dart';
-
-import 'package:wed_crew/view/user_modules/user_home/page/user_home_page.dart';
 import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/vendor_home_page.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/service/vendor_login_service.dart';
@@ -41,36 +37,35 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
           password: _passwordController.text.trim(),
         );
 
-        await PreferenceValues.vendorLogin(vendorId: responseMessage.vendorId!.toString());
+        await PreferenceValues.vendorLogin(
+            vendorId: responseMessage.vendorId!.toString());
 
         if (responseMessage.status == 'approved') {
-        
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Vendor Login successful')),
-            );
-             Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const VendorHomePages(),
-              ),
-            );
-          
-        } 
-       else if (responseMessage.status == 'rejected') {
-        
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Login failed due to invalid data submission.\nPlease correct the errors and try again')),
-            );
-          
-        } 
-         else if (responseMessage.status == 'pending') {
-        
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text('Your login attempt cannot proceed because your status is still pending')),
-            );
-          
-        } 
-        else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Vendor Login successful')),
+          );
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const VendorHomePages(),
+            ),
+            (route) {
+              return false;
+            },
+          );
+        } else if (responseMessage.status == 'rejected') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text(
+                    'Login failed due to invalid data submission.\nPlease correct the errors and try again')),
+          );
+        } else if (responseMessage.status == 'pending') {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+                content: Text(
+                    'Your login attempt cannot proceed because your status is still pending')),
+          );
+        } else {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
@@ -194,8 +189,7 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
                           width: double.infinity,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Color.fromRGBO(52, 132, 82, 1),
+                              backgroundColor: Color.fromRGBO(52, 132, 82, 1),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10)),
                             ),
@@ -210,32 +204,34 @@ class _VendorLoginPageState extends State<VendorLoginPage> {
                                   ),
                           ),
                         ),
-                        SizedBox(height: 15,),
-
-                        Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text("Don't have an account?"),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const VendorRegistration(),
+                        SizedBox(
+                          height: 15,
                         ),
-                      );
-                    },
-                    child: const Text(
-                      'Sign Up',
-                      style: TextStyle(
-                        color: Color.fromRGBO(38, 138, 76, 1),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text("Don't have an account?"),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        const VendorRegistration(),
+                                  ),
+                                );
+                              },
+                              child: const Text(
+                                'Sign Up',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(38, 138, 76, 1),
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ],
                     ),
                   ),

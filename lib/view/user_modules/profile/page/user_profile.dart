@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/user_modules/feedback/page/feeback_page.dart';
 import 'package:wed_crew/view/user_modules/profile/model/profile.dart';
 import 'package:wed_crew/view/user_modules/profile/service/profile_service.dart';
@@ -13,7 +14,7 @@ class UserProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile', style: TextStyle(color: Colors.black)),
-        backgroundColor:Color.fromARGB(255, 212, 179, 151),
+        backgroundColor: Color.fromARGB(255, 212, 179, 151),
         automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<UserProfileModel>(
@@ -116,11 +117,12 @@ class UserProfile extends StatelessWidget {
                                 TextButton(
                                   onPressed: () async {
                                     await PreferenceValues.userLogout();
-                                    Navigator.pushReplacement(
+                                    Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const UserLoginPage()),
+                                              const SignUpSelectionPage()),
+                                      (route) => false,
                                     );
                                   },
                                   child: const Text("Logout",

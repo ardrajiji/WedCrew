@@ -12,62 +12,63 @@ class VendorServicePage extends StatefulWidget {
 }
 
 class _VendorServicePageState extends State<VendorServicePage> {
- 
-Future<void> _deleteOption(dynamic id) async {
-  bool confirmDelete = await showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: const Text("Confirm Deletion"),
-        content: const Text("Are you sure you want to delete this service?"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(false); // Cancel deletion
-            },
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).pop(true); // Confirm deletion
-            },
-            child: const Text("Delete", style: TextStyle(color: Colors.red)),
-          ),
-        ],
-      );
-    },
-  );
-
-  if (confirmDelete == true) {
-    try {
-      final responseMessage = await serviceDeleteService(
-        service_id: id.toString(),
-      );
-
-      if (responseMessage.message == 'Service deleted successfully') {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Service deleted successfully!')),
-          );
-
-          setState(() {});
-        }
-      } else {
-        if (mounted) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(responseMessage.message ?? "Unknown error")),
-          );
-        }
-      }
-    } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Failed to delete product: $e')),
+  Future<void> _deleteOption(dynamic id) async {
+    bool confirmDelete = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Confirm Deletion"),
+          content: const Text("Are you sure you want to delete this service?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // Cancel deletion
+              },
+              child: const Text("Cancel"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(true); // Confirm deletion
+              },
+              child: const Text("Delete", style: TextStyle(color: Colors.red)),
+            ),
+          ],
         );
+      },
+    );
+
+    if (confirmDelete == true) {
+      try {
+        final responseMessage = await serviceDeleteService(
+          service_id: id.toString(),
+        );
+
+        if (responseMessage.message == 'Service deleted successfully') {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('Service deleted successfully!')),
+            );
+
+            setState(() {});
+          }
+        } else {
+          if (mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(
+                  content: Text(responseMessage.message ?? "Unknown error")),
+            );
+          }
+        }
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Failed to delete product: $e')),
+          );
+        }
       }
     }
   }
-}
+
   void _updateOption(int index) {
     showDialog(
       context: context,
@@ -180,11 +181,8 @@ Future<void> _deleteOption(dynamic id) async {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           IconButton(
-                            icon: const Icon(Icons.edit, color: Colors.blueGrey),
-                            onPressed: () => _updateOption(index),
-                          ),
-                          IconButton(
-                            icon: const Icon(Icons.delete, color: Colors.redAccent),
+                            icon: const Icon(Icons.delete,
+                                color: Colors.redAccent),
                             onPressed: () => _deleteOption(option.id!),
                           ),
                         ],

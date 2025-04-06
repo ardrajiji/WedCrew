@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:wed_crew/view/user_modules/user_login/page/login.dart';
 import 'package:wed_crew/view/user_modules/user_register/service/user_reg_service.dart';
 
-
 class UserRegistration extends StatefulWidget {
   const UserRegistration({super.key});
 
@@ -16,7 +15,8 @@ class _UserRegistrationState extends State<UserRegistration> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
@@ -31,8 +31,6 @@ class _UserRegistrationState extends State<UserRegistration> {
     super.dispose();
   }
 
-
-   
   // Function to handle form submission
   Future<void> _registerUser() async {
     if (_formKey.currentState?.validate() == true) {
@@ -61,12 +59,11 @@ class _UserRegistrationState extends State<UserRegistration> {
       }
     }
   }
-   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.white,
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Center(
           child: Padding(
@@ -75,7 +72,6 @@ class _UserRegistrationState extends State<UserRegistration> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Center(
-                  
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Form(
@@ -89,7 +85,6 @@ class _UserRegistrationState extends State<UserRegistration> {
                               fontSize: 27,
                               fontWeight: FontWeight.bold,
                               color: Color.fromRGBO(194, 154, 119, 1.0),
-
                             ),
                           ),
                           const SizedBox(height: 20),
@@ -99,24 +94,43 @@ class _UserRegistrationState extends State<UserRegistration> {
                               validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your email';
-                            } else if (!RegExp(r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]').hasMatch(value)) {
+                            } else if (!RegExp(
+                                    r'^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\.[a-z]')
+                                .hasMatch(value)) {
                               return 'Enter a valid email';
                             }
                             return null;
                           }),
                           const SizedBox(height: 15),
-                          _buildTextField('Phone Number', _phoneController,
-                              keyboardType: TextInputType.phone),
+                          _buildTextField(
+                            'Phone Number',
+                            _phoneController,
+                            keyboardType: TextInputType.phone,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please enter your phone number';
+                              } else if (!RegExp(r'^\d{10}$').hasMatch(value)) {
+                                return 'Enter a valid 10-digit phone number';
+                              }
+                              return null;
+                            },
+                          ),
                           const SizedBox(height: 15),
-                          _buildPasswordField('Password', _passwordController, _obscurePassword, () {
+                          _buildPasswordField(
+                              'Password', _passwordController, _obscurePassword,
+                              () {
                             setState(() {
                               _obscurePassword = !_obscurePassword;
                             });
                           }),
                           const SizedBox(height: 15),
-                          _buildPasswordField('Confirm Password', _confirmPasswordController, _obscureConfirmPassword, () {
+                          _buildPasswordField(
+                              'Confirm Password',
+                              _confirmPasswordController,
+                              _obscureConfirmPassword, () {
                             setState(() {
-                              _obscureConfirmPassword = !_obscureConfirmPassword;
+                              _obscureConfirmPassword =
+                                  !_obscureConfirmPassword;
                             });
                           }, validator: (value) {
                             if (value != _passwordController.text) {
@@ -129,10 +143,12 @@ class _UserRegistrationState extends State<UserRegistration> {
                             width: double.infinity,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: Color.fromRGBO(194, 154, 119, 1.0),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                                backgroundColor:
+                                    Color.fromRGBO(194, 154, 119, 1.0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
                               ),
-                              onPressed:_registerUser,
+                              onPressed: _registerUser,
                               // () {
                               //   if (_formKey.currentState!.validate()) {
                               //     Navigator.push(context, MaterialPageRoute(builder: (context) => const UserHomePage()));
@@ -140,7 +156,8 @@ class _UserRegistrationState extends State<UserRegistration> {
                               // },
                               child: const Text(
                                 'Register',
-                                style: TextStyle(color: Colors.white, fontSize: 18),
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18),
                               ),
                             ),
                           ),
@@ -150,29 +167,29 @@ class _UserRegistrationState extends State<UserRegistration> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                 Row(
-                mainAxisAlignment: MainAxisAlignment.center, 
-                children: [
-                   Text("Already have an account?"),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Already have an account?"),
                     TextButton(
-                    onPressed: () {
+                      onPressed: () {
                         Navigator.push(
-                        context,
-                        MaterialPageRoute(
+                          context,
+                          MaterialPageRoute(
                             builder: (context) => const UserLoginPage(),
-                        ),
+                          ),
                         );
-                    },
-                    child: const Text(
+                      },
+                      child: const Text(
                         'Login',
                         style: TextStyle(
-                        color: Color.fromRGBO(194, 154, 119, 1.0),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                          color: Color.fromRGBO(194, 154, 119, 1.0),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                         ),
+                      ),
                     ),
-                    ),
-                ],
+                  ],
                 ),
               ],
             ),
@@ -182,17 +199,25 @@ class _UserRegistrationState extends State<UserRegistration> {
     );
   }
 
-  Widget _buildTextField(String label, TextEditingController controller, {TextInputType keyboardType = TextInputType.text, String? Function(String?)? validator}) {
+  Widget _buildTextField(String label, TextEditingController controller,
+      {TextInputType keyboardType = TextInputType.text,
+      String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Color.fromRGBO(194, 154, 119, 1.0),)),
+        Text(label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color.fromRGBO(194, 154, 119, 1.0),
+            )),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           decoration: const InputDecoration(
-            border: OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
           ),
           validator: validator,
         ),
@@ -200,30 +225,39 @@ class _UserRegistrationState extends State<UserRegistration> {
     );
   }
 
-  Widget _buildPasswordField(String label, TextEditingController controller, bool obscureText, VoidCallback toggleVisibility, {String? Function(String?)? validator}) {
+  Widget _buildPasswordField(String label, TextEditingController controller,
+      bool obscureText, VoidCallback toggleVisibility,
+      {String? Function(String?)? validator}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(label, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500,color: Color.fromRGBO(194, 154, 119, 1.0),)),
+        Text(label,
+            style: const TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w500,
+              color: Color.fromRGBO(194, 154, 119, 1.0),
+            )),
         const SizedBox(height: 5),
         TextFormField(
           controller: controller,
           obscureText: obscureText,
           decoration: InputDecoration(
-            border: const OutlineInputBorder(borderRadius: BorderRadius.all(Radius.circular(15))),
+            border: const OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15))),
             suffixIcon: IconButton(
               icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off),
               onPressed: toggleVisibility,
             ),
           ),
-          validator: validator ?? (value) {
-            if (value == null || value.isEmpty) {
-              return 'Please enter your password';
-            } else if (value.length < 6) {
-              return 'Password must be at least 6 characters';
-            }
-            return null;
-          },
+          validator: validator ??
+              (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Please enter your password';
+                } else if (value.length < 6) {
+                  return 'Password must be at least 6 characters';
+                }
+                return null;
+              },
         ),
       ],
     );

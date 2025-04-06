@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wed_crew/view/register_separation.dart';
 import 'package:wed_crew/view/utils/preference_values.dart';
 import 'package:wed_crew/view/vendor_module/feedback/page/feedback_submit.dart';
 import 'package:wed_crew/view/vendor_module/vendor_login/page/vendor_login.dart';
@@ -148,11 +149,12 @@ class VendorProfileScreen extends StatelessWidget {
                                 TextButton(
                                   onPressed: () async {
                                     await PreferenceValues.vendorLogout();
-                                    Navigator.pushReplacement(
+                                    Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              const VendorLoginPage()),
+                                              const SignUpSelectionPage()),
+                                      (route) => false,
                                     );
                                   },
                                   child: const Text("Logout",
